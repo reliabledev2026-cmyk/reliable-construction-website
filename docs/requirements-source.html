@@ -1,0 +1,1238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Website Content Requirements</title>
+<!--
+  SOURCE FILE for docs/Website-Content-Requirements.pdf
+
+  The font placeholder token at the top of the stylesheet below is replaced with
+  base64-embedded @font-face rules at render time, so the PDF carries its own
+  fonts. Opening this file directly in a browser falls back to system fonts —
+  that is expected.
+
+  To regenerate the PDF after editing, see docs/README.md.
+-->
+<style>
+__FONTS__
+
+:root{
+  --ink:#0b1319; --ink-2:#111d25; --ink-3:#1b2a33;
+  --paper:#ffffff; --paper-2:#f5f3ef; --paper-3:#ebe7df;
+  --fg:#0b1319; --fg-muted:#56636b; --fg-subtle:#5a656c;
+  --accent:#ad3f13; --accent-soft:#e8763f;
+  --line:#d8d3c9; --line-strong:#bdb6a8;
+  --display:'Archivo',Arial,sans-serif;
+  --sans:'Manrope',Arial,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{
+  font-family:var(--sans); color:var(--fg); background:var(--paper);
+  font-size:9.4pt; line-height:1.5; -webkit-font-smoothing:antialiased;
+}
+
+@page{ size:A4; margin:14mm 15mm 16mm 15mm; }
+@page:first{ margin:0; }
+
+h1,h2,h3,h4{font-family:var(--display);letter-spacing:-0.025em;line-height:1.05;font-weight:600}
+
+/* ------------------------------- primitives ------------------------------ */
+.label{font-family:var(--mono);font-size:6.6pt;font-weight:500;letter-spacing:.18em;text-transform:uppercase;line-height:1}
+.mono{font-family:var(--mono)}
+.muted{color:var(--fg-muted)}
+.subtle{color:var(--fg-subtle)}
+.accent{color:var(--accent)}
+.rule{height:1px;background:var(--line);width:100%}
+
+.page-break{break-before:page}
+.avoid{break-inside:avoid}
+
+/* --------------------------------- cover --------------------------------- */
+.cover{
+  background:var(--ink); color:#f5f3ef;
+  height:297mm; width:210mm; padding:20mm 18mm;
+  display:flex; flex-direction:column; justify-content:space-between;
+  break-after:page; position:relative; overflow:hidden;
+}
+.cover::before{
+  content:""; position:absolute; inset:0;
+  background-image:linear-gradient(to right,rgba(245,243,239,.05) 1px,transparent 1px),
+                   linear-gradient(to bottom,rgba(245,243,239,.05) 1px,transparent 1px);
+  background-size:18mm 18mm;
+}
+.cover > *{position:relative}
+.lockup{display:flex;align-items:center;gap:9px}
+.mark{
+  width:34px;height:34px;border:1px solid rgba(255,255,255,.35);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:8pt;letter-spacing:.02em;
+}
+.wordmark{font-family:var(--display);font-weight:700;font-size:12pt;letter-spacing:.03em;line-height:1}
+.wordmark-sub{font-family:var(--mono);font-size:5.8pt;letter-spacing:.22em;color:#8fa0a9;margin-top:3px}
+
+.cover h1{font-size:40pt;line-height:.94;letter-spacing:-0.04em;color:#f5f3ef}
+.cover .eyebrow{color:#9dabb3;display:flex;align-items:center;gap:9px;margin-bottom:14mm}
+.cover .eyebrow .dot{width:5px;height:5px;background:var(--accent-soft);display:inline-block}
+.cover .lede{color:#9dabb3;font-size:10.5pt;line-height:1.6;max-width:118mm;margin-top:9mm}
+
+.cover-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:7mm;border-top:1px solid rgba(255,255,255,.16);padding-top:6mm}
+.cover-meta .k{color:#7c8a92}
+.cover-meta .v{margin-top:3.5mm;border-bottom:1px solid rgba(255,255,255,.28);min-height:7mm;font-size:9.5pt;color:#f5f3ef}
+
+/* ------------------------------- section head ---------------------------- */
+.sec{break-inside:auto;margin-top:10mm}
+.sec:first-of-type{margin-top:0}
+.sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8mm;
+  border-top:1.4px solid var(--ink); padding-top:3.5mm; margin-bottom:4mm;
+  break-after:avoid;
+}
+.sec-head .n{font-family:var(--mono);font-size:6.6pt;letter-spacing:.18em;color:var(--accent)}
+.sec-head h2{font-size:16pt;margin-top:2.5mm}
+.sec-head .src{font-family:var(--mono);font-size:6pt;letter-spacing:.12em;color:var(--fg-subtle);white-space:nowrap}
+.sec-intro{color:var(--fg-muted);max-width:150mm;margin-bottom:5mm;font-size:9pt}
+
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:5.8pt;letter-spacing:.16em;
+  text-transform:uppercase;padding:2px 6px;border:1px solid var(--line-strong);
+  color:var(--fg-subtle);vertical-align:2px;
+}
+.tag.req{border-color:var(--accent);color:var(--accent)}
+
+/* --------------------------------- fields -------------------------------- */
+.field{margin-bottom:4mm;break-inside:avoid}
+.field > .label{color:var(--fg-subtle);display:block;margin-bottom:2mm}
+.field .hint{font-size:7.4pt;color:var(--fg-subtle);margin-bottom:2mm;line-height:1.45}
+.box{border:1px solid var(--line);background:var(--paper-2);min-height:9mm}
+.box.tall{min-height:20mm}
+.box.xtall{min-height:30mm}
+.box.short{min-height:7.5mm}
+
+/* pre-filled current placeholder value */
+.current{
+  border-left:2px solid var(--accent); background:var(--paper-2);
+  padding:2.5mm 3mm; font-size:8.4pt; color:var(--fg-muted); margin-bottom:2.5mm;
+}
+.current .cl{font-family:var(--mono);font-size:5.8pt;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:1.5mm}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 5mm}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:0 4mm}
+
+/* checkboxes */
+.checks{display:grid;gap:2.2mm 5mm}
+.checks.c2{grid-template-columns:1fr 1fr}
+.checks.c3{grid-template-columns:repeat(3,1fr)}
+.chk{display:flex;align-items:flex-start;gap:2.5mm;font-size:8.6pt;line-height:1.35;break-inside:avoid}
+.chk .sq{width:3.4mm;height:3.4mm;border:1px solid var(--line-strong);flex:0 0 auto;margin-top:.6mm;background:#fff}
+
+/* note callout */
+.note{
+  border:1px solid var(--line); border-left:2.5px solid var(--accent);
+  background:var(--paper-2); padding:3.5mm 4mm; margin:4mm 0; font-size:8.4pt;
+  color:var(--fg-muted); line-height:1.55; break-inside:avoid;
+}
+.note strong{color:var(--fg);font-weight:600}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:8.2pt;break-inside:auto}
+th{
+  font-family:var(--mono);font-size:5.9pt;letter-spacing:.15em;text-transform:uppercase;
+  text-align:left;color:var(--fg-subtle);font-weight:500;
+  border-bottom:1px solid var(--ink);padding:0 2mm 2mm 0;
+}
+td{border-bottom:1px solid var(--line);padding:2.4mm 2mm 2.4mm 0;vertical-align:top}
+tr{break-inside:avoid}
+td.fill{background:var(--paper-2)}
+.tnum{font-family:var(--mono);font-size:6.6pt;color:var(--fg-subtle);width:8mm}
+
+/* repeating-entry template card */
+.card{border-top:1.4px solid var(--ink);padding:4mm 0 0;break-inside:auto;margin-bottom:3mm}
+.card-head{display:flex;justify-content:space-between;align-items:baseline;background:var(--paper-2);padding:2.5mm 3mm;margin-bottom:4mm;break-after:avoid}
+.card-head .t{font-family:var(--display);font-weight:600;font-size:10pt}
+
+/* running footer text on content pages */
+.foot{font-family:var(--mono);font-size:6pt;letter-spacing:.14em;color:var(--fg-subtle)}
+
+/* contents */
+.toc{width:100%;border-collapse:collapse;break-inside:avoid}
+.toc td{border-bottom:1px solid var(--line);padding:3.3mm 0;font-size:9.2pt;vertical-align:baseline}
+.toc .num{font-family:var(--mono);font-size:6.6pt;color:var(--accent);width:12mm}
+.toc .nm{font-weight:500}
+.toc .who{width:38mm}
+.toc .own{width:52mm;border-bottom:1px solid var(--line-strong)}
+</style>
+</head>
+<body>
+
+<!-- ============================== COVER ================================== -->
+<section class="cover">
+  <div>
+    <div class="lockup">
+      <div class="mark">RC</div>
+      <div>
+        <div class="wordmark">EVEREST</div>
+        <div class="wordmark-sub">ENGINEERING CONSULTANCY</div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="eyebrow label"><span class="dot"></span> Website Project &nbsp;·&nbsp; Content Requirements</div>
+    <h1>What we need<br>from you to<br>launch.</h1>
+    <p class="lede">
+      Your website is built and working. Every page currently carries placeholder
+      text, photography and figures written to demonstrate the design. This pack
+      lists exactly what real information is needed to replace them — section by
+      section, in the order it appears on the site.
+    </p>
+  </div>
+
+  <div class="cover-meta label">
+    <div><div class="k">Prepared for</div><div class="v"></div></div>
+    <div><div class="k">Date issued</div><div class="v"></div></div>
+    <div><div class="k">Return by</div><div class="v"></div></div>
+  </div>
+</section>
+
+<!-- ============================ HOW TO USE =============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div>
+      <div class="n">§ 00</div>
+      <h2>How to use this document</h2>
+    </div>
+    <div class="src">READ FIRST</div>
+  </div>
+
+  <p class="sec-intro">
+    Work through the sections in any order. Where the site already contains a
+    placeholder, it is shown in an orange-marked box so you can either confirm it
+    or correct it — you do not have to write everything from scratch.
+  </p>
+
+  <div class="g2">
+    <div>
+      <div class="note" style="margin-top:0">
+        <strong>Three ways to return it.</strong><br>
+        1. Write directly into this PDF and email it back.<br>
+        2. Print it, complete by hand, and scan.<br>
+        3. Use it as a checklist and send the content in a document or shared
+        folder, keeping the same section numbers.
+      </div>
+
+      <div class="note">
+        <strong>Priority markers.</strong><br>
+        <span class="tag req">Essential</span> &nbsp;Blocks launch — the page cannot go live without it.<br><br>
+        <span class="tag">Important</span> &nbsp;Should be real at launch; a sensible interim version is possible.<br><br>
+        <span class="tag">Optional</span> &nbsp;Can be added after launch without rework.
+      </div>
+    </div>
+
+    <div>
+      <div class="note" style="margin-top:0">
+        <strong>Photography specification.</strong><br>
+        All imagery on the site is currently licensed stock. To use your own:<br><br>
+        · Landscape shots: <strong>2000&nbsp;px wide minimum</strong>, JPG<br>
+        · Team portraits: <strong>900&nbsp;×&nbsp;1200&nbsp;px minimum</strong>, vertical, plain or blurred background<br>
+        · Logos: <strong>SVG preferred</strong>, otherwise PNG with transparency<br>
+        · Send originals, not screenshots or images pulled from social media<br>
+        · Confirm you hold the right to publish each photograph
+      </div>
+
+      <div class="note">
+        <strong>A note on honesty.</strong><br>
+        Statistics, project figures and testimonials on the site are currently
+        invented for demonstration. Please replace them with figures you can
+        evidence. Anything you are unsure about, mark <em>“cannot confirm”</em>
+        and we will remove that element rather than publish a number that cannot
+        be defended.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<section class="sec page-break">
+  <div class="sec-head">
+    <div><div class="n">§ 00.1</div><h2>Contents &amp; ownership</h2></div>
+    <div class="src">ASSIGN AN OWNER</div>
+  </div>
+  <p class="sec-intro">
+    Name the person responsible for compiling each section, so nothing sits
+    unowned. Sections marked <span class="tag req">Essential</span> block launch.
+  </p>
+
+  <div>
+    <table class="toc">
+      <tr><td class="num">01</td><td class="nm">Company identity &amp; brand</td><td class="who label subtle">Owner</td><td class="own"></td></tr>
+      <tr><td class="num">02</td><td class="nm">Contact details &amp; offices</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">03</td><td class="nm">About the practice</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">04</td><td class="nm">Vision, mission &amp; values</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">05</td><td class="nm">Company history &amp; milestones</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">06</td><td class="nm">Headline statistics</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">07</td><td class="nm">Accreditations &amp; memberships</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">08</td><td class="nm">Services &amp; disciplines</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">09</td><td class="nm">Projects &amp; portfolio</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">10</td><td class="nm">Sectors served</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">11</td><td class="nm">Team &amp; people</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">12</td><td class="nm">Testimonials &amp; references</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">13</td><td class="nm">Clients &amp; partners</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">14</td><td class="nm">Careers &amp; recruitment</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">15</td><td class="nm">Insights &amp; news</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">16</td><td class="nm">Legal, privacy &amp; compliance</td><td></td><td class="own"></td></tr>
+      <tr><td class="num">17</td><td class="nm">Technical handover</td><td></td><td class="own"></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ 01 IDENTITY ============================== -->
+<section class="sec page-break">
+  <div class="sec-head">
+    <div><div class="n">§ 01</div><h2>Company identity &amp; brand</h2></div>
+    <div class="src">SITEWIDE · HEADER · FOOTER</div>
+  </div>
+  <p class="sec-intro">
+    These values appear on every page — in the navigation, the footer, the browser
+    tab, search results and the social sharing preview. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="current">
+    <span class="cl">Currently on the site</span>
+    Trading name <strong>“Reliable Consulting &amp; Construction”</strong> · wordmark <strong>RELIABLE / CONSULTING &amp; CONSTRUCTION</strong> ·
+    supplied image mark <strong>logo.jpg</strong> · legal name <strong>“Reliable Consulting &amp; Construction Pvt. Ltd.”</strong> ·
+    registration <strong>“Reg. No. 000000/000/000 · PAN 000000000”</strong> · founded <strong>2010</strong>.
+  </div>
+
+  <div class="g2">
+    <div class="field"><span class="label">Registered legal name (exactly as on documents)</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Trading name used publicly</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Company registration number</span><div class="box short"></div></div>
+    <div class="field"><span class="label">PAN / VAT number</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Year established</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Monogram / initials for the logo mark</span><div class="box short"></div></div>
+  </div>
+
+  <div class="field">
+    <span class="label">One-line tagline</span>
+    <div class="hint">Shown under the company name. Currently: “Your dream home. Our commitment.”</div>
+    <div class="box short"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Short description — 2 to 3 sentences</span>
+    <div class="hint">Used in the footer, in search-engine results and when the site is shared on social media. Say what you do, for whom, and where.</div>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Logo files supplied</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Vector master (SVG / AI / EPS)</span></div>
+      <div class="chk"><span class="sq"></span><span>Light version (for dark backgrounds)</span></div>
+      <div class="chk"><span class="sq"></span><span>Dark version (for light backgrounds)</span></div>
+      <div class="chk"><span class="sq"></span><span>Favicon / icon-only mark</span></div>
+      <div class="chk"><span class="sq"></span><span>Brand guidelines document</span></div>
+      <div class="chk"><span class="sq"></span><span>No logo yet — design required</span></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Brand colours — if you have existing brand colours, give the exact codes</span>
+    <div class="hint">The site currently uses a deep slate (#0B1319), a warm off-white (#F5F3EF) and a burnt orange accent (#AD3F13). These are single values in one file and can be changed in minutes.</div>
+    <div class="g3">
+      <div><div class="label subtle" style="margin-bottom:1.5mm">Primary / dark</div><div class="box short"></div></div>
+      <div><div class="label subtle" style="margin-bottom:1.5mm">Background / light</div><div class="box short"></div></div>
+      <div><div class="label subtle" style="margin-bottom:1.5mm">Accent</div><div class="box short"></div></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Keep the current palette and typography?</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Yes — keep as designed</span></div>
+      <div class="chk"><span class="sq"></span><span>Change to our brand colours</span></div>
+      <div class="chk"><span class="sq"></span><span>Would like to discuss</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 02 CONTACT =============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 02</div><h2>Contact details &amp; office</h2></div>
+    <div class="src">CONTACT PAGE · FOOTER</div>
+  </div>
+  <p class="sec-intro">
+    These appear on the contact page, in the footer of every page and in the
+    structured data that search engines use to show your business. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="current">
+    <span class="cl">Currently on the site</span>
+    Main office <strong>“Beside Hakimchowk Bigmart, Bharatpur, Chitwan, Nepal”</strong> ·
+    telephone <strong>056-517722</strong> · WhatsApp <strong>9715517722</strong> ·
+    email and careers <strong>rcconstruction722@gmail.com</strong>.
+    <em>No field or branch offices.</em>
+  </div>
+
+  <h3 style="font-size:11pt;margin:5mm 0 3mm">Main office</h3>
+  <div class="g2">
+    <div class="field"><span class="label">Street / building / ward</span><div class="box short"></div></div>
+    <div class="field"><span class="label">City &amp; postal code</span><div class="box short"></div></div>
+    <div class="field"><span class="label">District / province</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Google Maps link or coordinates</span><div class="box short"></div></div>
+  </div>
+
+  <div class="note"><strong>Office structure:</strong> one main office in Bharatpur; no additional field or branch offices.</div>
+
+  <h3 style="font-size:11pt;margin:6mm 0 3mm">Contact channels</h3>
+  <div class="g2">
+    <div class="field"><span class="label">Main telephone</span><div class="box short"></div></div>
+    <div class="field"><span class="label">WhatsApp</span><div class="box short"></div></div>
+    <div class="field"><span class="label">General enquiries email</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Careers / recruitment email</span><div class="box short"></div></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Office hours</span>
+    <div class="hint">Include the working week as observed locally, and note any seasonal variation.</div>
+    <div class="box short"></div>
+  </div>
+
+  <div class="note">
+    <strong>Enquiry delivery:</strong> because the site has no backend, the contact form
+    opens the visitor's email application with a prepared message addressed to
+    <strong>rcconstruction722@gmail.com</strong>.
+  </div>
+
+  <div class="field">
+    <span class="label">Social media — full URLs, or mark “none”</span>
+    <div class="g2">
+      <div style="margin-bottom:3mm"><div class="label subtle" style="margin-bottom:1.5mm">LinkedIn</div><div class="box short"></div></div>
+      <div style="margin-bottom:3mm"><div class="label subtle" style="margin-bottom:1.5mm">Facebook</div><div class="box short"></div></div>
+      <div style="margin-bottom:3mm"><div class="label subtle" style="margin-bottom:1.5mm">Instagram</div><div class="box short"></div></div>
+      <div style="margin-bottom:3mm"><div class="label subtle" style="margin-bottom:1.5mm">YouTube / other</div><div class="box short"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== 03 ABOUT ================================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 03</div><h2>About the practice</h2></div>
+    <div class="src">HOME · ABOUT PAGE</div>
+  </div>
+  <p class="sec-intro">
+    The narrative that runs across the home page introduction and the top of the
+    About page. This is the most-read copy on the site after the headline. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Company introduction — 100 to 150 words</span>
+    <div class="hint">
+      Who you are, what you do, since when, and across what geography. Write it as
+      you would explain the practice to a prospective client who has never heard of you.
+    </div>
+    <div class="box xtall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">What genuinely distinguishes you from other consultancies?</span>
+    <div class="hint">
+      Be specific and, ideally, provable. “We are the only practice in the region
+      with in-house UAV survey” is useful; “we are committed to excellence” is not.
+    </div>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Six reasons a client should appoint you</span>
+    <div class="hint">
+      The site shows these as a numbered register. Current placeholders: Technical
+      Excellence · Experienced Professionals · Integrated Solutions · Client-Focused
+      Approach · Quality &amp; Safety · Sustainable Engineering. Confirm, reword or replace.
+    </div>
+    <table>
+      <tr><th class="tnum">#</th><th style="width:52mm">Heading</th><th>Supporting sentence</th></tr>
+      <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td></tr>
+    </table>
+  </div>
+
+  <div class="field" style="margin-top:5mm">
+    <span class="label">Your delivery process — five stages</span>
+    <div class="hint">
+      Shown as a horizontal timeline. Current placeholders: Understand · Plan ·
+      Design · Implement · Deliver. Replace with the language your proposals use.
+    </div>
+    <table>
+      <tr><th class="tnum">#</th><th style="width:38mm">Stage name</th><th>What happens at this stage</th></tr>
+      <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ====================== 04 VISION / MISSION / VALUES =================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 04</div><h2>Vision, mission &amp; values</h2></div>
+    <div class="src">ABOUT PAGE</div>
+  </div>
+  <p class="sec-intro">
+    If you already have board-approved wording, send it verbatim and skip the
+    boxes below. <span class="tag">Important</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Vision — what the practice is trying to become</span>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Mission — what the practice does, day to day</span>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Core values — four, each with a sentence of explanation</span>
+    <div class="hint">Current placeholders: Technical Integrity · Field Realism · Long Horizons · Local Capability.</div>
+    <table>
+      <tr><th class="tnum">#</th><th style="width:46mm">Value</th><th>What it means in practice</th></tr>
+      <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ 05 HISTORY =============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 05</div><h2>Company history &amp; milestones</h2></div>
+    <div class="src">ABOUT PAGE · TIMELINE</div>
+  </div>
+  <p class="sec-intro">
+    Six entries work best. Choose moments that show growing capability — a
+    discipline brought in-house, a first major commission, an office opening, an
+    accreditation achieved. <span class="tag">Important</span>
+  </p>
+
+  <table>
+    <tr><th class="tnum">#</th><th style="width:18mm">Year</th><th style="width:48mm">Milestone</th><th>What changed and why it mattered</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">07</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">08</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+</section>
+
+<!-- =========================== 06 STATISTICS ============================= -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 06</div><h2>Headline statistics</h2></div>
+    <div class="src">HOME · ABOUT · TEAM</div>
+  </div>
+  <p class="sec-intro">
+    These are set at very large size and are the first hard claim a visitor
+    reads, so they need to be defensible. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="current">
+    <span class="cl">Currently on the site — all invented</span>
+    <strong>15+</strong> Years of Experience · <strong>120+</strong> Completed Projects ·
+    <strong>25+</strong> Technical Professionals · <strong>30+</strong> Districts Served.
+    Team page also shows <strong>9</strong> disciplines, <strong>16&nbsp;yrs</strong> average
+    senior experience and <strong>40%</strong> women in technical roles.
+  </div>
+
+  <table>
+    <tr><th class="tnum">#</th><th style="width:22mm">Figure</th><th style="width:52mm">Label shown on site</th><th>Basis / how it is counted</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <h3 style="font-size:11pt;margin:6mm 0 3mm">Team composition figures</h3>
+  <div class="g4">
+    <div class="field"><span class="label">Technical staff</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Disciplines</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Avg. senior experience</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Women in technical roles</span><div class="box short"></div></div>
+  </div>
+
+  <div class="note">
+    <strong>If a figure cannot be evidenced, say so.</strong> We would rather remove a
+    statistic than publish one that a prospective client could challenge in a
+    meeting. Tick here if any figure above should be dropped: <span class="sq" style="display:inline-block;width:3.4mm;height:3.4mm;border:1px solid var(--line-strong);vertical-align:-1px;margin-left:2mm"></span>
+  </div>
+</section>
+
+<!-- ========================= 07 ACCREDITATIONS =========================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 07</div><h2>Accreditations &amp; memberships</h2></div>
+    <div class="src">ABOUT PAGE</div>
+  </div>
+  <p class="sec-intro">
+    Only list certifications you currently hold and can produce a certificate for.
+    <span class="tag req">Essential</span>
+  </p>
+
+  <div class="current">
+    <span class="cl">Currently on the site — placeholder</span>
+    ISO 9001:2015 · ISO 14001:2015 · ISO 45001:2018 · Consultant Class A registration.
+    Affiliations listed: NEA, NEC, SCAEF, IPPAN, FCAN, IABSE.
+  </div>
+
+  <h3 style="font-size:11pt;margin:5mm 0 3mm">Certifications held</h3>
+  <table>
+    <tr><th class="tnum">#</th><th style="width:40mm">Standard / code</th><th style="width:52mm">What it covers</th><th>Certificate no. &amp; expiry</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <h3 style="font-size:11pt;margin:6mm 0 3mm">Professional bodies &amp; registrations</h3>
+  <table>
+    <tr><th class="tnum">#</th><th style="width:75mm">Organisation (full name and abbreviation)</th><th>Membership / registration number</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+</section>
+
+<!-- ============================ 08 SERVICES ============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 08</div><h2>Services &amp; disciplines</h2></div>
+    <div class="src">HOME · SERVICES · 5 DETAIL PAGES</div>
+  </div>
+  <p class="sec-intro">
+    Each service has its own page at a clean address such as
+    <span class="mono">/services/2d-house-planning</span>. Confirm the five below, or
+    tell us which to rename or add. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Confirm the five residential services</span>
+    <div class="checks c2">
+      <div class="chk"><span class="sq"></span><span><strong>01</strong> &nbsp;2D House Planning</span></div>
+      <div class="chk"><span class="sq"></span><span><strong>02</strong> &nbsp;3D Exterior Design</span></div>
+      <div class="chk"><span class="sq"></span><span><strong>03</strong> &nbsp;Structural Analysis</span></div>
+      <div class="chk"><span class="sq"></span><span><strong>04</strong> &nbsp;Site Supervision</span></div>
+      <div class="chk"><span class="sq"></span><span><strong>05</strong> &nbsp;Municipality Plan Pass</span></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Services to add</span>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="note">
+    <strong>Complete the block below once for each service.</strong> Photocopy this page,
+    or send the same headings in a document. Five completed blocks are needed for a
+    full launch; we can publish with summaries only and add the detail later.
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="t">Service entry — template</span>
+      <span class="label subtle">Repeat for each discipline</span>
+    </div>
+
+    <div class="field"><span class="label">Service name</span><div class="box short"></div></div>
+
+    <div class="field">
+      <span class="label">One-line summary — max 20 words</span>
+      <div class="hint">Appears in the expertise list on the home page and in the navigation menu.</div>
+      <div class="box short"></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Full description — 60 to 100 words</span>
+      <div class="hint">What the discipline covers and what makes your approach to it distinctive.</div>
+      <div class="box tall"></div>
+    </div>
+
+    <div class="g2">
+      <div class="field">
+        <span class="label">Scope — 6 items</span>
+        <div class="hint">What a typical appointment includes.</div>
+        <div class="box xtall"></div>
+      </div>
+      <div class="field">
+        <span class="label">Capabilities — 4 items</span>
+        <div class="hint">Software, equipment, design codes you work to.</div>
+        <div class="box xtall"></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="field"><span class="label">Two projects that demonstrate it</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Photograph filename supplied</span><div class="box short"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 09 PROJECTS ============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 09</div><h2>Projects &amp; portfolio</h2></div>
+    <div class="src">HOME · PROJECTS · DETAIL PAGES</div>
+  </div>
+  <p class="sec-intro">
+    The portfolio is the most persuasive part of the site. It currently holds
+    sixteen entirely fictional projects with invented clients and figures — all of
+    it must be replaced. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="note">
+    <strong>Before you start:</strong> check whether your contract with each client
+    permits you to name them and publish photographs. Where it does not, we can
+    still show the project with the client described generically
+    (“a provincial infrastructure office”). Mark those clearly.
+  </div>
+
+  <h3 style="font-size:11pt;margin:5mm 0 3mm">Project list — start with the strongest eight to twelve</h3>
+  <table>
+    <tr>
+      <th class="tnum">#</th><th style="width:52mm">Project title</th><th style="width:26mm">Location</th>
+      <th style="width:24mm">Sector</th><th style="width:14mm">Year</th><th>Can we name the client?</th>
+    </tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">07</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">08</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">09</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">10</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">11</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">12</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <div class="field" style="margin-top:5mm">
+    <span class="label">Sector categories — these become the portfolio filter buttons</span>
+    <div class="hint">Currently: Hydropower · Transportation · Buildings · Water · Survey · Environment. Confirm or revise.</div>
+    <div class="box short"></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 09.1</div><h2>Project entry — template</h2></div>
+    <div class="src">ONE PER PROJECT</div>
+  </div>
+  <p class="sec-intro">
+    Complete this for each project in the list. If a field does not apply, write
+    “n/a” rather than leaving it blank, so we know it was considered.
+  </p>
+
+  <div class="card">
+    <div class="g2">
+      <div class="field"><span class="label">Project title</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Client (or generic description)</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Location — district</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Province</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Sector category</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Year completed / current</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Duration of your appointment</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Status — completed / ongoing / in design</span><div class="box short"></div></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Card summary — 1 to 2 sentences</span>
+      <div class="hint">Shown on the portfolio tile. Lead with the scale and the service you provided.</div>
+      <div class="box tall"></div>
+    </div>
+
+    <div class="field">
+      <span class="label">Full overview — 80 to 120 words</span>
+      <div class="hint">
+        The strongest project write-ups explain the <em>problem</em> — what made this
+        one difficult, what you found, and what you did differently as a result.
+        Avoid a list of activities; tell us what governed the design.
+      </div>
+      <div class="box xtall"></div>
+    </div>
+
+    <div class="g2">
+      <div class="field">
+        <span class="label">Scope of works — 6 items</span>
+        <div class="box xtall"></div>
+      </div>
+      <div class="field">
+        <span class="label">Services you provided — 3 to 4</span>
+        <div class="box xtall"></div>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="label">Four key figures</span>
+      <div class="hint">e.g. installed capacity 24&nbsp;MW · span 180&nbsp;m · command area 9,400&nbsp;ha · network 148&nbsp;km.</div>
+      <table>
+        <tr><th style="width:60mm">Label</th><th>Value</th></tr>
+        <tr><td class="fill"></td><td class="fill"></td></tr>
+        <tr><td class="fill"></td><td class="fill"></td></tr>
+        <tr><td class="fill"></td><td class="fill"></td></tr>
+        <tr><td class="fill"></td><td class="fill"></td></tr>
+      </table>
+    </div>
+
+    <div class="field" style="margin-top:4mm">
+      <span class="label">Photographs — one lead image plus four for the gallery</span>
+      <div class="hint">List the filenames you are sending. Confirm you hold publication rights for each.</div>
+      <div class="box tall"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= 10 SECTORS ============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 10</div><h2>Sectors served</h2></div>
+    <div class="src">HOME PAGE</div>
+  </div>
+  <p class="sec-intro">
+    Displayed as a large-type list with a photograph that changes as the visitor
+    moves through it. <span class="tag">Important</span>
+  </p>
+
+  <table>
+    <tr><th class="tnum">#</th><th style="width:56mm">Sector name</th><th style="width:34mm">Projects delivered</th><th>Representative photograph</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">07</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">08</td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <div class="current" style="margin-top:5mm">
+    <span class="cl">Currently on the site — placeholder</span>
+    Infrastructure · Hydropower · Transportation · Buildings · Water Resources ·
+    Urban Development · Environment · Energy, each with an invented project count.
+  </div>
+</section>
+
+<!-- ============================== 11 TEAM ================================ -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 11</div><h2>Team &amp; people</h2></div>
+    <div class="src">TEAM PAGE · ABOUT PAGE</div>
+  </div>
+  <p class="sec-intro">
+    Eight people are shown at present, all stock photographs with invented names
+    and credentials. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="note">
+    <strong>Consent is required.</strong> Every person listed must agree to their name,
+    photograph, qualifications and biography appearing on a public website. Please
+    confirm you have obtained this for each individual.
+  </div>
+
+  <table>
+    <tr>
+      <th class="tnum">#</th><th style="width:38mm">Full name</th><th style="width:42mm">Position</th>
+      <th style="width:30mm">Discipline</th><th style="width:16mm">Years</th><th>Photo &amp; consent</th>
+    </tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">07</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">08</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">09</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">10</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <h3 style="font-size:11pt;margin:6mm 0 3mm">For each person, also supply</h3>
+  <div class="g2">
+    <div class="field">
+      <span class="label">Qualifications &amp; registration</span>
+      <div class="hint">Degrees and professional registration number, e.g. “M.Sc. Structural Engineering · NEC Reg. A-0000”.</div>
+      <div class="box tall"></div>
+    </div>
+    <div class="field">
+      <span class="label">Biography — 25 to 40 words</span>
+      <div class="hint">What they lead, and one thing they are specifically known for.</div>
+      <div class="box tall"></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Which of these people should also appear as leadership on the About page?</span>
+    <div class="box short"></div>
+  </div>
+</section>
+
+<!-- ========================== 12 TESTIMONIALS ============================ -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 12</div><h2>Testimonials &amp; references</h2></div>
+    <div class="src">HOME PAGE CAROUSEL</div>
+  </div>
+  <p class="sec-intro">
+    Five quotes are currently shown, all invented. Written permission from the
+    person quoted is required before any of these can be published.
+    <span class="tag">Important</span>
+  </p>
+
+  <div class="note">
+    <strong>What makes a testimonial work.</strong> A specific one is worth ten generic
+    ones. “They told us the intake would silt within three seasons and showed us
+    the data” persuades; “a pleasure to work with” does not. If you can, ask the
+    referee to name the problem you solved.
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="t">Testimonial — template</span><span class="label subtle">Repeat up to 5 times</span></div>
+    <div class="field"><span class="label">Quotation — 30 to 60 words, in their words</span><div class="box xtall"></div></div>
+    <div class="g2">
+      <div class="field"><span class="label">Name of person quoted</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Their position</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Their organisation</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Project it relates to</span><div class="box short"></div></div>
+    </div>
+    <div class="chk" style="margin-top:2mm"><span class="sq"></span><span>Written permission to publish has been obtained and can be produced on request</span></div>
+  </div>
+</section>
+
+<!-- ============================ 13 CLIENTS =============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 13</div><h2>Clients &amp; partners</h2></div>
+    <div class="src">HOME PAGE · CLIENT WALL</div>
+  </div>
+  <p class="sec-intro">
+    Displayed as a typographic wall. No invented brand marks are used — if you
+    supply logo files they will replace the text automatically.
+    <span class="tag">Important</span>
+  </p>
+
+  <table>
+    <tr><th class="tnum">#</th><th style="width:74mm">Organisation — full name</th><th style="width:20mm">Abbrev.</th><th style="width:26mm">Sector</th><th>Logo supplied</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">07</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">08</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">09</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">10</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">11</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">12</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <div class="note">
+    <strong>Permission to display.</strong> Using a client's logo generally requires their
+    consent, and some public bodies restrict it entirely. Confirm which of the
+    above may be shown as a logo, which as text only, and which not at all.
+  </div>
+</section>
+
+<!-- ============================ 14 CAREERS =============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 14</div><h2>Careers &amp; recruitment</h2></div>
+    <div class="src">CAREERS PAGE</div>
+  </div>
+  <p class="sec-intro">
+    Six placeholder vacancies are currently listed with invented closing dates.
+    <span class="tag">Important</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Do you want a careers page at launch?</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Yes, with live vacancies</span></div>
+      <div class="chk"><span class="sq"></span><span>Yes, culture only for now</span></div>
+      <div class="chk"><span class="sq"></span><span>Remove the page</span></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="field">
+      <span class="label">Four things that describe working at the practice</span>
+      <div class="hint">Currently: “Engineers, not drafters” · “Time on site” · “Checked, not blamed” · “Deep specialisation”.</div>
+      <div class="box xtall"></div>
+    </div>
+    <div class="field">
+      <span class="label">Benefits offered — up to 8</span>
+      <div class="hint">Provident fund, insurance, field allowance, training budget, study leave, parental leave, and so on.</div>
+      <div class="box xtall"></div>
+    </div>
+  </div>
+
+  <h3 style="font-size:11pt;margin:5mm 0 3mm">Current vacancies</h3>
+  <table>
+    <tr>
+      <th class="tnum">#</th><th style="width:48mm">Job title</th><th style="width:34mm">Department</th>
+      <th style="width:28mm">Location</th><th style="width:20mm">Type</th><th>Closing date</th>
+    </tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+
+  <div class="field" style="margin-top:4mm">
+    <span class="label">For each vacancy also supply</span>
+    <div class="hint">A two-line summary, 4–5 responsibilities, 4–5 requirements, and the years of experience expected.</div>
+  </div>
+
+  <div class="field">
+    <span class="label">How should applications be received?</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Email to a named address</span></div>
+      <div class="chk"><span class="sq"></span><span>Online form on the site</span></div>
+      <div class="chk"><span class="sq"></span><span>External recruitment system</span></div>
+    </div>
+    <div class="box short" style="margin-top:2.5mm"></div>
+  </div>
+</section>
+
+<!-- ============================ 15 INSIGHTS ============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 15</div><h2>Insights &amp; news</h2></div>
+    <div class="src">INSIGHTS PAGE · ARTICLES</div>
+  </div>
+  <p class="sec-intro">
+    Four placeholder articles are in place. This section is the strongest tool you
+    have for search visibility and for demonstrating technical depth, but only if
+    it is genuinely maintained. <span class="tag">Optional</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Do you want to publish insights?</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Yes — we can write regularly</span></div>
+      <div class="chk"><span class="sq"></span><span>Occasional news only</span></div>
+      <div class="chk"><span class="sq"></span><span>Remove the section</span></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>An unmaintained news page damages credibility.</strong> A page whose most
+    recent item is two years old suggests a practice that has gone quiet. If you
+    cannot commit to roughly four posts a year, it is better to remove it now and
+    add it later.
+  </div>
+
+  <table>
+    <tr><th class="tnum">#</th><th style="width:66mm">Article title or topic</th><th style="width:30mm">Type</th><th style="width:30mm">Author</th><th>Target date</th></tr>
+    <tr><td class="tnum">01</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">02</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">03</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">04</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">05</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    <tr><td class="tnum">06</td><td class="fill"></td><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+  </table>
+</section>
+
+<!-- ============================= 16 LEGAL ================================ -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 16</div><h2>Legal, privacy &amp; compliance</h2></div>
+    <div class="src">PRIVACY · TERMS PAGES</div>
+  </div>
+  <p class="sec-intro">
+    The privacy policy and terms currently on the site are unreviewed placeholder
+    text. They must be checked by your legal adviser before launch.
+    <span class="tag req">Essential</span>
+  </p>
+
+  <div class="field">
+    <span class="label">Privacy policy</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>We will supply our own</span></div>
+      <div class="chk"><span class="sq"></span><span>Adapt the draft, we will review</span></div>
+      <div class="chk"><span class="sq"></span><span>Need a recommendation</span></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Terms &amp; conditions</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>We will supply our own</span></div>
+      <div class="chk"><span class="sq"></span><span>Adapt the draft, we will review</span></div>
+      <div class="chk"><span class="sq"></span><span>Need a recommendation</span></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <div class="field"><span class="label">How long should enquiry data be retained?</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Who is the data protection contact?</span><div class="box short"></div></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Any disclaimers required on project information?</span>
+    <div class="hint">For example, wording clarifying that published design figures are project-specific and do not constitute engineering advice.</div>
+    <div class="box tall"></div>
+  </div>
+</section>
+
+<!-- =========================== 17 TECHNICAL ============================== -->
+<section class="sec">
+  <div class="sec-head">
+    <div><div class="n">§ 17</div><h2>Technical handover</h2></div>
+    <div class="src">DEPLOYMENT</div>
+  </div>
+  <p class="sec-intro">
+    Needed to put the site live under your own domain. <span class="tag req">Essential</span>
+  </p>
+
+  <div class="g2">
+    <div class="field"><span class="label">Domain name to use</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Do you already own it?</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Domain registrar &amp; who holds the login</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Existing website to replace or redirect</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Email provider (so we do not disrupt it)</span><div class="box short"></div></div>
+    <div class="field"><span class="label">Google Business Profile — exists?</span><div class="box short"></div></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Who will update content after launch?</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>You — we will send changes</span></div>
+      <div class="chk"><span class="sq"></span><span>Us — we want an editor / CMS</span></div>
+      <div class="chk"><span class="sq"></span><span>Undecided</span></div>
+    </div>
+    <div class="hint" style="margin-top:2.5mm">
+      The site has been structured so a content management system can be connected
+      later without rebuilding pages. If you want to edit content yourselves, say so
+      now and we will scope it.
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Analytics &amp; tracking</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>Google Analytics</span></div>
+      <div class="chk"><span class="sq"></span><span>Privacy-friendly alternative</span></div>
+      <div class="chk"><span class="sq"></span><span>None</span></div>
+    </div>
+  </div>
+
+  <div class="field">
+    <span class="label">Search terms you want to be found for</span>
+    <div class="hint">List 5–10 phrases a prospective client would actually type, e.g. “hydropower feasibility study Nepal”.</div>
+    <div class="box tall"></div>
+  </div>
+
+  <div class="field">
+    <span class="label">Languages required</span>
+    <div class="checks c3">
+      <div class="chk"><span class="sq"></span><span>English only</span></div>
+      <div class="chk"><span class="sq"></span><span>English + Nepali</span></div>
+      <div class="chk"><span class="sq"></span><span>Other</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== SIGN-OFF =============================== -->
+<section class="sec page-break">
+  <div class="sec-head">
+    <div><div class="n">§ 18</div><h2>Return checklist &amp; sign-off</h2></div>
+    <div class="src">FINAL PAGE</div>
+  </div>
+  <p class="sec-intro">
+    Tick what you are returning. Anything not supplied stays as placeholder text,
+    and we will flag it before launch.
+  </p>
+
+  <div class="checks c2">
+    <div class="chk"><span class="sq"></span><span>§ 01 Company identity &amp; brand — including logo files</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 02 Contact details &amp; enquiry destination inbox</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 03 About narrative &amp; differentiators</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 04 Vision, mission &amp; values</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 05 History &amp; milestones</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 06 Statistics, with basis for each</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 07 Certificates &amp; membership numbers</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 08 Service descriptions (×10)</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 09 Project write-ups &amp; photography</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 10 Sector list</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 11 Team details, portraits &amp; consent</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 12 Testimonials with written permission</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 13 Client list &amp; logo permissions</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 14 Careers content &amp; vacancies</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 15 Insights decision</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 16 Legal copy reviewed by adviser</span></div>
+    <div class="chk"><span class="sq"></span><span>§ 17 Domain &amp; technical details</span></div>
+    <div class="chk"><span class="sq"></span><span>All photography supplied at full resolution</span></div>
+  </div>
+
+  <div class="note" style="margin-top:6mm">
+    <strong>What happens next.</strong> Once this pack is returned we will load the real
+    content, send you a staging link to review every page, make one round of
+    corrections, and then go live on your domain. The main variable in that
+    timeline is photography — it is almost always the slowest item, so it is worth
+    starting on it first.
+  </div>
+
+  <div style="margin-top:8mm">
+    <div class="rule" style="margin-bottom:5mm"></div>
+    <div class="g3">
+      <div class="field"><span class="label">Completed by — name</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Position</span><div class="box short"></div></div>
+      <div class="field"><span class="label">Date</span><div class="box short"></div></div>
+    </div>
+    <div class="field">
+      <span class="label">Signature</span>
+      <div class="box" style="min-height:16mm"></div>
+    </div>
+  </div>
+
+  <div style="margin-top:10mm;display:flex;justify-content:space-between;align-items:flex-end;border-top:1px solid var(--line);padding-top:4mm">
+    <div>
+      <div class="label subtle">Return to</div>
+      <div style="margin-top:2mm;font-size:9pt" class="muted">Project contact &nbsp;·&nbsp; email &nbsp;·&nbsp; telephone</div>
+    </div>
+    <div class="lockup" style="gap:7px">
+      <div class="mark" style="width:26px;height:26px;border-color:var(--line-strong);color:var(--fg);font-size:7pt">RC</div>
+      <div>
+        <div class="wordmark" style="font-size:9.5pt;color:var(--fg)">EVEREST</div>
+        <div class="wordmark-sub" style="color:var(--fg-subtle);font-size:5.2pt">ENGINEERING CONSULTANCY</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
