@@ -23,7 +23,7 @@ export const IMG = {
   heroMain: u("1748063578185-3d68121b11ff", 2400), // illuminated modern home exterior
   modernHome: u("1633777396638-dc40348489ce", 2200), // contemporary multi-level residence
   compactHome: u("1709147617968-709368900af1", 1800), // compact urban residence
-  classicalHome: u("1658831467839-b64a031c3882", 1800), // classical facade reference
+  classicalHome: u("1658831467839-b64a031c3882", 1800), 
 
   /* --- Studio / people at work --- */
   studioTable: u("1616587656879-8a8a7cce9d6c", 1800),
