@@ -75,7 +75,7 @@ export function ContactForm() {
 
     setSent(true);
     window.location.assign(
-      `mailto:${company.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+      `mailto:ashimsth89@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
     );
   };
 
