@@ -65,7 +65,7 @@ export default async function ProjectDetailPage({
         meta={project.facts.map((fact) => ({ k: fact.label, v: fact.value }))}
       />
 
-      <Section>
+      <Section className="pt-12 md:pt-16 lg:pt-20">
         <div className="shell grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>

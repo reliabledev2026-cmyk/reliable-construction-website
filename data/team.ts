@@ -52,12 +52,3 @@ export const team: TeamMember[] = [
     placeholder: true,
   },
 ];
-
-export const leadership = team;
-
-export const teamStats = [
-  { value: 3, suffix: "", label: "Sample profiles" },
-  { value: 3, suffix: "", label: "Core disciplines" },
-  { value: 5, suffix: "", label: "Integrated services" },
-  { value: 1, suffix: "", label: "Coordinated workflow" },
-];

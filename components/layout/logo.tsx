@@ -44,7 +44,7 @@ export function Logo({
         <span
           className={cn(
             "mt-1 font-mono text-[0.5rem] font-medium tracking-[0.12em]",
-            invert ? "text-fg-invert-subtle" : "text-fg-subtle",
+            invert ? "text-white/65" : "text-fg-subtle",
           )}
         >
           {company.logo.line2}

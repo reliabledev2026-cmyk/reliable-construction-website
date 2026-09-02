@@ -23,7 +23,7 @@ export function CTA({
   image?: string;
   /** Section number in the running index; differs per page. */
   index?: string;
-  href?: "/contact" | "/careers";
+  href?: "/contact";
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-ink text-fg-invert">

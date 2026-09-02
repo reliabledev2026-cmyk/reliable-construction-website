@@ -91,6 +91,14 @@
     text-wrap: pretty;
   }
 
+  :where(a[href], button:not(:disabled), [role="button"], summary, select) {
+    cursor: pointer;
+  }
+
+  :where(button:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+
   /* Visible, on-brand focus ring everywhere */
   :focus-visible {
     outline: 2px solid var(--color-accent);
@@ -258,30 +266,6 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Radix Accordion open/close */
-@keyframes acc-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-@keyframes acc-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-.acc-content[data-state="open"] {
-  animation: acc-down 0.4s var(--ease-out-expo);
-}
-.acc-content[data-state="closed"] {
-  animation: acc-up 0.3s var(--ease-out-expo);
-}
-
 /* Radix Navigation Menu dropdown panel */
 @keyframes panel-in {
   from {
@@ -325,22 +309,6 @@
 }
 .nav-panel[data-state="closed"] {
   animation: panel-out 0.2s ease-in forwards;
-}
-
-/* Marquee for the client logo wall */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.marquee-track {
-  animation: marquee 45s linear infinite;
-}
-.marquee:hover .marquee-track {
-  animation-play-state: paused;
 }
 
 /* Thin custom scrollbar */

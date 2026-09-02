@@ -39,7 +39,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] flex-col justify-end overflow-hidden bg-ink text-fg-invert"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink text-fg-invert md:justify-end"
     >
       {/* ------------------------------- backdrop ------------------------------ */}
       <motion.div className="absolute inset-0" style={{ y: imageY }}>
@@ -74,7 +74,7 @@ export function Hero() {
       {/* ------------------------------- content ------------------------------- */}
       <motion.div
         style={{ opacity: contentOpacity }}
-        className="relative shell pb-14 pt-32 md:pb-16"
+        className="relative shell pb-8 pt-28 sm:pt-32 md:pb-16"
       >
         {/* The headline takes the full sheet width so it holds two lines */}
         <h1 className="display-xl text-fg-invert max-sm:text-[2.375rem] max-sm:leading-[0.95]">

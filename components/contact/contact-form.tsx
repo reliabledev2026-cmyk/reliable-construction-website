@@ -95,7 +95,7 @@ export function ContactForm() {
             <span className="flex size-12 items-center justify-center bg-accent text-white">
               <Check className="size-6" strokeWidth={1.75} aria-hidden />
             </span>
-            <h3 className="display-sm mt-7">Email app opened.</h3>
+            <h3 className="display-sm mt-7">Message ready to send.</h3>
             <p className="lede mt-4 max-w-md">
               Review the prepared message and press send in your email app. For
               anything urgent, please call or message us directly.
@@ -248,7 +248,7 @@ export function ContactForm() {
                 type="submit"
                 className="group/btn inline-flex h-14 shrink-0 items-center justify-center gap-4 bg-ink px-8 text-fg-invert transition-colors duration-500 ease-out-expo hover:bg-accent"
               >
-                <span className="label">Open Email App</span>
+                <span className="label">Send Message</span>
                 <ArrowUpRight
                   className="size-4 transition-transform duration-500 ease-out-expo group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"
                   aria-hidden

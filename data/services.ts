@@ -11,7 +11,7 @@ import { IMG } from "./images";
  * sitemap entry are all derived automatically.
  *
  * `icon` is a key into components/icon.tsx — add the icon there if you use a new
- * name. `relatedProjects` holds project slugs from data/projects.ts.
+ * name.
  */
 
 export type Service = {
@@ -27,7 +27,6 @@ export type Service = {
   capabilities: string[];
   icon: string;
   image: string;
-  relatedProjects: string[];
 };
 
 export const services: Service[] = [
@@ -54,7 +53,6 @@ export const services: Service[] = [
     ],
     icon: "clipboard",
     image: IMG.blueprint,
-    relatedProjects: [],
   },
   {
     slug: "3d-exterior-design",
@@ -79,7 +77,6 @@ export const services: Service[] = [
     ],
     icon: "building",
     image: IMG.concreteBuilding,
-    relatedProjects: [],
   },
   {
     slug: "structural-analysis",
@@ -104,7 +101,6 @@ export const services: Service[] = [
     ],
     icon: "construction",
     image: IMG.steelFrame,
-    relatedProjects: [],
   },
   {
     slug: "site-supervision",
@@ -129,7 +125,6 @@ export const services: Service[] = [
     ],
     icon: "hardhat",
     image: IMG.craneScaffold,
-    relatedProjects: [],
   },
   {
     slug: "municipality-plan-pass",
@@ -154,7 +149,6 @@ export const services: Service[] = [
     ],
     icon: "clipboard",
     image: IMG.drawingSet,
-    relatedProjects: [],
   },
 ];
 

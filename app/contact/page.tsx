@@ -131,40 +131,52 @@ export default function ContactPage() {
             </div>
           </Reveal>
 
-          {/* Address panel linking to a live Google Maps search. */}
+          {/* Live Google Maps embed using the supplied main-office coordinates. */}
           <Reveal delay={0.1}>
-            <div className="blueprint-grid-light relative mt-10 aspect-16/9 w-full overflow-hidden border border-line bg-paper md:aspect-21/9">
-              {/* Cross-hair marker */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                <div className="relative">
-                  <span className="absolute left-1/2 top-1/2 h-px w-24 -translate-x-1/2 -translate-y-1/2 bg-accent/40" />
-                  <span className="absolute left-1/2 top-1/2 h-24 w-px -translate-x-1/2 -translate-y-1/2 bg-accent/40" />
-                  <span className="relative block size-4 -translate-x-1/2 -translate-y-1/2 bg-accent" />
+            <div className="mt-10 grid overflow-hidden border border-line bg-paper lg:grid-cols-12">
+              <div className="relative min-h-[22rem] lg:col-span-8 lg:min-h-[30rem]">
+                <iframe
+                  src={contact.mapsEmbedUrl}
+                  title={`${company.name} main office location on Google Maps`}
+                  loading="eager"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0 h-full w-full border-0 grayscale-[15%]"
+                />
+              </div>
+
+              <div className="blueprint-grid relative flex flex-col justify-between bg-ink p-7 text-fg-invert lg:col-span-4 lg:p-10">
+                <div>
+                  <p className="label text-accent-soft">{contact.officeName}</p>
+                  <h3 className="display-sm mt-6">Visit us in Bharatpur.</h3>
+                  <p className="mt-5 text-sm leading-relaxed text-fg-invert-muted">
+                    {contact.address.line1}
+                    <br />
+                    {contact.address.line2}
+                    <br />
+                    {contact.address.city}, {contact.address.country}
+                  </p>
+                </div>
+
+                <div className="mt-10 border-t border-white/12 pt-6">
+                  <p className="font-mono text-[0.625rem] tracking-[0.12em] text-fg-invert-subtle">
+                    {contact.coordinates.latitude.toFixed(6)}, {" "}
+                    {contact.coordinates.longitude.toFixed(6)}
+                  </p>
+                  <a
+                    href={contact.mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group mt-6 flex items-center justify-between bg-accent px-5 py-4 text-white transition-colors duration-500 hover:bg-paper hover:text-ink"
+                  >
+                    <span className="label">Get directions</span>
+                    <ArrowUpRight
+                      className="size-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      aria-hidden
+                    />
+                  </a>
                 </div>
               </div>
-
-              <div className="absolute bottom-5 left-5 max-w-xs border border-line bg-paper p-5">
-                <p className="label text-accent">{contact.officeName}</p>
-                <p className="mt-3 text-sm leading-relaxed">
-                  {contact.address.line1}
-                  <br />
-                  {contact.address.line2}
-                  <br />
-                  <span className="text-fg-muted">
-                    {contact.address.city}, {contact.address.country}
-                  </span>
-                </p>
-              </div>
-
-              <a
-                href={contact.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="label absolute right-5 top-5 inline-flex items-center gap-2 text-accent"
-              >
-                Directions
-                <ArrowUpRight className="size-3.5" aria-hidden />
-              </a>
             </div>
           </Reveal>
         </div>
@@ -175,40 +187,44 @@ export default function ContactPage() {
         <Reveal className="shell grid grid-cols-1 md:grid-cols-2">
           <a
             href={`tel:${contact.phone.replace(/\s/g, "")}`}
-            className="group flex items-center justify-between gap-6 border-b border-white/12 py-12 transition-colors duration-500 hover:bg-ink-2 md:border-b-0 md:border-r md:pr-10"
+            className="group relative isolate flex items-center justify-between gap-6 overflow-hidden border-b border-white/12 py-12 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:border-b-0 md:border-r md:pr-10"
           >
-            <span>
+            <span
+              className="absolute inset-0 -z-10 origin-left scale-x-0 bg-white/[0.045] transition-transform duration-700 ease-out-expo group-hover:scale-x-100 group-focus-visible:scale-x-100"
+              aria-hidden
+            />
+            <span className="relative z-10">
               <span className="label text-fg-invert-subtle">
                 Prefer to talk?
               </span>
-              <span className="display-sm mt-4 block transition-transform duration-600 ease-out-expo group-hover:translate-x-1.5">
+              <span className="display-sm mt-4 block">
                 {contact.phone}
               </span>
             </span>
-            <Phone
-              className="size-6 shrink-0 text-fg-invert-subtle transition-colors duration-500 group-hover:text-accent"
-              strokeWidth={1.25}
-              aria-hidden
-            />
+            <span className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-white/15 text-fg-invert-muted transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-white group-focus-visible:border-accent group-focus-visible:bg-accent group-focus-visible:text-white">
+              <Phone className="size-5" strokeWidth={1.4} aria-hidden />
+            </span>
           </a>
 
           <a
             href={`mailto:${contact.email}`}
-            className="group flex items-center justify-between gap-6 py-12 transition-colors duration-500 hover:bg-ink-2 md:pl-10"
+            className="group relative isolate flex items-center justify-between gap-6 overflow-hidden py-12 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent md:pl-10"
           >
-            <span className="min-w-0">
+            <span
+              className="absolute inset-0 -z-10 origin-left scale-x-0 bg-white/[0.045] transition-transform duration-700 ease-out-expo group-hover:scale-x-100 group-focus-visible:scale-x-100"
+              aria-hidden
+            />
+            <span className="relative z-10 min-w-0">
               <span className="label text-fg-invert-subtle">
                 Prefer to write?
               </span>
-              <span className="mt-4 block font-display text-lg font-semibold tracking-tight wrap-break-word transition-transform duration-600 ease-out-expo group-hover:translate-x-1.5 sm:text-xl lg:text-2xl">
+              <span className="mt-4 block font-display text-lg font-semibold tracking-tight wrap-break-word sm:text-xl lg:text-2xl">
                 {contact.email}
               </span>
             </span>
-            <Mail
-              className="size-6 shrink-0 text-fg-invert-subtle transition-colors duration-500 group-hover:text-accent"
-              strokeWidth={1.25}
-              aria-hidden
-            />
+            <span className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full border border-white/15 text-fg-invert-muted transition-all duration-500 group-hover:border-accent group-hover:bg-accent group-hover:text-white group-focus-visible:border-accent group-focus-visible:bg-accent group-focus-visible:text-white">
+              <Mail className="size-5" strokeWidth={1.4} aria-hidden />
+            </span>
           </a>
         </Reveal>
       </section>

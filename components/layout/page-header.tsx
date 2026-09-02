@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
-import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /**
@@ -25,7 +25,7 @@ export function PageHeader({
   title: React.ReactNode;
   lede?: React.ReactNode;
   image?: string;
-  breadcrumb?: { label: string; href: "/" | "/projects" | "/services" | "/insights" };
+  breadcrumb?: { label: string; href: "/" | "/projects" | "/services" };
   /** Optional key/value strip along the bottom of the band. */
   meta?: { k: string; v: string }[];
   align?: "wide" | "narrow";
@@ -48,7 +48,7 @@ export function PageHeader({
       )}
       <div className="blueprint-grid absolute inset-0 opacity-70" aria-hidden />
 
-      <div className="relative shell pb-16 pt-36 md:pb-20 md:pt-44 lg:pb-24 lg:pt-52">
+      <div className="relative shell pb-14 pt-32 md:pb-16 md:pt-40 lg:pb-20 lg:pt-44">
         {breadcrumb && (
           <Reveal delay={0.02}>
             <nav aria-label="Breadcrumb" className="mb-8">
@@ -88,17 +88,15 @@ export function PageHeader({
         )}
 
         {meta && meta.length > 0 && (
-          <dl className="mt-14 grid grid-cols-2 gap-x-8 gap-y-8 border-t border-white/12 pt-8 sm:grid-cols-4">
-            <RevealGroup as="div" gap={0.06} delay={0.18} className="contents">
-              {meta.map((m) => (
-                <RevealItem key={m.k}>
+          <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-white/12 pt-6 sm:grid-cols-4">
+            {meta.map((m, index) => (
+              <Reveal key={m.k} delay={0.16 + index * 0.05}>
                   <dt className="label text-fg-invert-subtle">{m.k}</dt>
                   <dd className="mt-2.5 font-display text-base font-semibold tracking-tight">
                     {m.v}
                   </dd>
-                </RevealItem>
-              ))}
-            </RevealGroup>
+              </Reveal>
+            ))}
           </dl>
         )}
       </div>

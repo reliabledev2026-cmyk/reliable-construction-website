@@ -4,8 +4,7 @@ import { residentialProjects } from "@/data/residential-projects";
 import { services } from "@/data/services";
 
 /**
- * Sitemap. Every route is derived from the data files, so adding a project,
- * service or article automatically adds its URL here.
+ * Sitemap. Project and service routes are derived from their data files.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = company.url;

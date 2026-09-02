@@ -44,7 +44,7 @@ export default function ProjectsPage() {
         ]}
       />
 
-      <Section>
+      <Section className="pt-12 md:pt-16 lg:pt-20">
         <Reveal className="shell">
           <div className="grid grid-cols-1 gap-x-16 gap-y-6 border-b border-line pb-10 lg:grid-cols-12 lg:items-end">
             <h2 className="display-md lg:col-span-6">A clean project showcase, ready for real work.</h2>

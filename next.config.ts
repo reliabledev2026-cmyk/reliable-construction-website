@@ -12,15 +12,6 @@ const nextConfig: NextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  // Retire the illustrative template pages until genuine company portfolio,
-  // team and recruitment material is available.
-  async redirects() {
-    return [
-      { source: "/insights/:path*", destination: "/#updates", permanent: false },
-      { source: "/team", destination: "/about", permanent: false },
-      { source: "/careers", destination: "/contact", permanent: false },
-    ];
-  },
 };
 
 export default nextConfig;

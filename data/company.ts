@@ -1,5 +1,3 @@
-import { IMG } from "./images";
-
 export const facebookPageUrl =
   "https://www.facebook.com/profile.php?id=61563188068067";
 
@@ -46,9 +44,8 @@ export const company = {
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=27.668847064236267%2C84.434014004679",
     mapsEmbedUrl:
-      "https://www.google.com/maps?q=27.668847064236267,84.434014004679&z=17&output=embed",
+      "https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s27.668847064236267,84.434014004679!6i17",
     email: "rcconstruction722@gmail.com",
-    careersEmail: "rcconstruction722@gmail.com",
   },
 
   social: [
@@ -59,14 +56,6 @@ export const company = {
     { label: "YouTube", href: "https://www.youtube.com/", icon: "youtube" },
   ],
 } as const;
-
-/** Headline statistics — animated counters on the home and about pages. */
-export const stats = [
-  { value: 2, suffix: "D", label: "House Planning", note: "Clear, buildable floor plans" },
-  { value: 3, suffix: "D", label: "Exterior Design", note: "See the home before construction" },
-  { value: 5, suffix: "", label: "Core Services", note: "Planning through site supervision" },
-  { value: 1, suffix: "", label: "Coordinated Team", note: "One point of responsibility" },
-] as const;
 
 export const vision = {
   title: "Vision",
@@ -97,34 +86,6 @@ export const values = [
   },
 ];
 
-/** Reasons-to-choose block on the home page. */
-export const differentiators = [
-  {
-    title: "Plan Before You Build",
-    body: "We turn your requirements, plot conditions and budget into clear drawings before construction decisions become expensive to change.",
-  },
-  {
-    title: "Structural Safety",
-    body: "The architectural idea is checked against a practical structural system suitable for the home and its site conditions.",
-  },
-  {
-    title: "One Coordinated Team",
-    body: "Planning, exterior design, structural work and supervision are coordinated together, reducing gaps between drawings and construction.",
-  },
-  {
-    title: "Municipality Support",
-    body: "We prepare and organise the technical drawings needed for municipality plan-pass submission and help resolve documentation queries.",
-  },
-  {
-    title: "Site Quality Checks",
-    body: "Supervision connects the approved drawings to work on site, with practical guidance when questions arise during construction.",
-  },
-  {
-    title: "Budget-Aware Advice",
-    body: "Design choices are discussed with buildability and cost in mind so the final home remains realistic for the client.",
-  },
-];
-
 /** Delivery process — horizontal timeline on desktop, vertical on mobile. */
 export const process = [
   {
@@ -147,18 +108,6 @@ export const process = [
     title: "Build & Supervise",
     body: "Site supervision and design clarification help the construction follow the approved drawings and intent.",
   },
-];
-
-/** Sector list — large-type hover section on the home page. */
-export const sectors = [
-  { name: "House Planning", image: IMG.blueprint, count: "2D drawings" },
-  { name: "Exterior Design", image: IMG.concreteBuilding, count: "3D visualisation" },
-  { name: "Structural Safety", image: IMG.steelFrame, count: "Analysis & design" },
-  { name: "Municipality Approval", image: IMG.drawingSet, count: "Plan-pass support" },
-  { name: "Site Supervision", image: IMG.craneScaffold, count: "Quality on site" },
-  { name: "Cost Estimation", image: IMG.studioTable, count: "BOQ & budgeting" },
-  { name: "Renovation Planning", image: IMG.concreteStair, count: "Existing homes" },
-  { name: "Construction Support", image: IMG.towerConstruction, count: "Plan to handover" },
 ];
 
 /** Primary navigation. Add a route here and it appears in desktop + mobile nav. */

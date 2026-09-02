@@ -49,7 +49,7 @@ export default function ServicesPage() {
       />
 
       {/* Alternating full-width service sections */}
-      <Section className="pb-0">
+      <Section className="pb-0 pt-12 md:pt-16 lg:pt-20">
         <RevealGroup gap={0.05} className="shell">
           <RevealItem>
             <p className="lede max-w-3xl">

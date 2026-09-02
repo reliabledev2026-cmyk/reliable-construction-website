@@ -68,7 +68,7 @@ export function Navbar() {
                       className={cn(
                         "label group/nav relative flex items-center gap-1.5 px-4 py-3 transition-colors duration-300",
                         invert
-                          ? "text-fg-invert-muted hover:text-fg-invert data-[state=open]:text-fg-invert"
+                          ? "text-white/80 hover:text-white data-[state=open]:text-white"
                           : "text-fg-muted hover:text-fg data-[state=open]:text-fg",
                         active && (invert ? "text-fg-invert" : "text-fg"),
                       )}
@@ -138,7 +138,7 @@ export function Navbar() {
                       className={cn(
                         "label relative block px-4 py-3 transition-colors duration-300",
                         invert
-                          ? "text-fg-invert-muted hover:text-fg-invert"
+                          ? "text-white/80 hover:text-white"
                           : "text-fg-muted hover:text-fg",
                         active && (invert ? "text-fg-invert" : "text-fg"),
                       )}

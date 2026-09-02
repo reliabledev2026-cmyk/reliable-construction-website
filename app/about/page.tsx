@@ -41,7 +41,7 @@ export default function AboutPage() {
         ]}
       />
 
-      <Section>
+      <Section className="pt-12 md:pt-16 lg:pt-20">
         <div className="shell grid grid-cols-1 gap-x-16 gap-y-14 lg:grid-cols-12 lg:items-center">
           <Reveal className="lg:col-span-6">
             <RevealImage
