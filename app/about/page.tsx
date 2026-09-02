@@ -11,6 +11,8 @@ export const metadata = createPageMetadata({
   title: "About the Practice",
   description: `${company.shortName} is a house engineering and construction consultancy in Bharatpur, Chitwan, coordinating planning, design, approval and site supervision.`,
   path: "/about",
+  image: IMG.reviewingDrawings,
+  imageAlt: "House design professionals reviewing coordinated drawings",
   keywords: [
     "house engineering consultancy Bharatpur",
     "residential consultants Chitwan",

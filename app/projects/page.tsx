@@ -12,6 +12,8 @@ export const metadata = createPageMetadata({
   description:
     "Explore residential planning, exterior design and engineering concept studies from Reliable Consulting & Construction in Bharatpur, Chitwan.",
   path: "/projects",
+  image: IMG.classicalHome,
+  imageAlt: "Neo-classical residential exterior concept",
   keywords: [
     "residential design concepts Bharatpur",
     "house exterior design Chitwan",

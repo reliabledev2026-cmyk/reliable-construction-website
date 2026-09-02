@@ -1,11 +1,14 @@
 import { LegalPage, type LegalSection } from "@/components/layout/legal-page";
 import { company } from "@/data/company";
+import { IMG } from "@/data/images";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "Privacy Policy",
   description: `How ${company.name} collects, uses and protects personal information submitted through this website.`,
   path: "/privacy",
+  image: IMG.studioTable,
+  imageAlt: "Architectural planning materials arranged on a studio table",
 });
 
 /** Placeholder copy — have this reviewed by a legal adviser before launch. */

@@ -11,6 +11,8 @@ export const metadata = createPageMetadata({
   title: "Contact",
   description: `Discuss your house planning, design or construction needs with ${company.name} in Bharatpur, Chitwan.`,
   path: "/contact",
+  image: IMG.compactHome,
+  imageAlt: "Compact contemporary house exterior",
   keywords: [
     "engineering consultant Hakimchowk",
     "house consultant Bharatpur contact",

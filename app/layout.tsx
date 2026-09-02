@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { JsonLd } from "@/components/seo/json-ld";
 import { company } from "@/data/company";
+import { IMG } from "@/data/images";
 import {
   createPageMetadata,
   siteDescription,
@@ -46,6 +47,8 @@ const defaultSeo = createPageMetadata({
   description: siteDescription,
   path: "/",
   absoluteTitle: true,
+  image: IMG.heroMain,
+  imageAlt: "Modern family house designed for comfortable residential living",
 });
 
 export const metadata: Metadata = {

@@ -7,6 +7,7 @@ import { Process } from "@/components/sections/process";
 import { ServicesList } from "@/components/sections/services-list";
 import { TeamPreview } from "@/components/sections/team-preview";
 import { Section, SectionHeader } from "@/components/ui/section";
+import { IMG } from "@/data/images";
 import { createPageMetadata, siteDescription, siteTitle } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -14,6 +15,8 @@ export const metadata = createPageMetadata({
   description: siteDescription,
   path: "/",
   absoluteTitle: true,
+  image: IMG.heroMain,
+  imageAlt: "Modern family house designed for comfortable residential living",
   keywords: [
     "house design and construction Bharatpur",
     "house engineering consultancy Chitwan",

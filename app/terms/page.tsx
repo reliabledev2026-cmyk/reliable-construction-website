@@ -1,11 +1,14 @@
 import { LegalPage, type LegalSection } from "@/components/layout/legal-page";
 import { company } from "@/data/company";
+import { IMG } from "@/data/images";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
   title: "Terms & Conditions",
   description: `Terms governing use of the ${company.name} website and the information published on it.`,
   path: "/terms",
+  image: IMG.drawingSet,
+  imageAlt: "Technical construction drawings for a residential project",
 });
 
 /** Placeholder copy — have this reviewed by a legal adviser before launch. */

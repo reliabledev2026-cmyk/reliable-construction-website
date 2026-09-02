@@ -16,6 +16,8 @@ export const metadata = createPageMetadata({
   description:
     "House planning, 3D exterior design, structural analysis, site supervision and municipality plan-pass support in Bharatpur, Chitwan.",
   path: "/services",
+  image: IMG.blueprint,
+  imageAlt: "Residential house plan and engineering drawing",
   keywords: [
     "house planning services Bharatpur",
     "structural design Chitwan",

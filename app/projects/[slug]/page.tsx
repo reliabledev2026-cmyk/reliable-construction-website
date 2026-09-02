@@ -7,6 +7,8 @@ import { CTA } from "@/components/sections/cta";
 import { RevealImage } from "@/components/ui/media";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
+import { company } from "@/data/company";
+import { IMG } from "@/data/images";
 import {
   getResidentialProject,
   residentialProjects,
@@ -31,6 +33,8 @@ export async function generateMetadata({
       title: "Project not found",
       description: "The requested residential project page could not be found.",
       path: `/projects/${slug}`,
+      image: IMG.heroMain,
+      imageAlt: "Modern residential design concept",
       noIndex: true,
     });
   }
@@ -39,6 +43,8 @@ export async function generateMetadata({
     title: project.title,
     description: project.summary,
     path: `/projects/${project.slug}`,
+    image: project.image,
+    imageAlt: `${project.title} residential concept by ${company.name}`,
     keywords: [
       `${project.title.toLowerCase()} Bharatpur`,
       "residential concept design Chitwan",

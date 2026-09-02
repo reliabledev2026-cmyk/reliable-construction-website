@@ -10,6 +10,7 @@ import { CTA } from "@/components/sections/cta";
 import { RevealImage } from "@/components/ui/media";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
+import { company } from "@/data/company";
 import { projectsForService } from "@/data/residential-projects";
 import { getService, services } from "@/data/services";
 import { createPageMetadata } from "@/lib/seo";
@@ -30,6 +31,8 @@ export async function generateMetadata({
       title: "Service not found",
       description: "The requested service page could not be found.",
       path: `/services/${slug}`,
+      image: "/images/services/blueprint.webp",
+      imageAlt: "Residential house planning and engineering drawing",
       noIndex: true,
     });
   }
@@ -38,6 +41,8 @@ export async function generateMetadata({
     title: service.title,
     description: service.summary,
     path: `/services/${service.slug}`,
+    image: service.image,
+    imageAlt: `${service.title} by ${company.name}`,
     keywords: [
       `${service.title.toLowerCase()} Bharatpur`,
       `${service.title.toLowerCase()} Chitwan`,

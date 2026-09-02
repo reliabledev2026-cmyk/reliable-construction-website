@@ -12,8 +12,6 @@ export const siteTitle = company.name;
 export const siteDescription =
   "Reliable Consulting & Construction provides 2D house plans, 3D exterior design, structural analysis, plan-pass support and site supervision in Bharatpur.";
 
-export const defaultSocialImage = "/opengraph-image";
-
 export function absoluteUrl(path = "/") {
   return new URL(path, `${siteUrl}/`).toString();
 }
@@ -23,8 +21,8 @@ type PageMetadataOptions = {
   description: string;
   path: string;
   absoluteTitle?: boolean;
-  image?: string;
-  imageAlt?: string;
+  image: string;
+  imageAlt: string;
   keywords?: string[];
   noIndex?: boolean;
 };
@@ -38,8 +36,8 @@ export function createPageMetadata({
   description,
   path,
   absoluteTitle = false,
-  image = defaultSocialImage,
-  imageAlt = `${company.name} — ${company.tagline}`,
+  image,
+  imageAlt,
   keywords,
   noIndex = false,
 }: PageMetadataOptions): Metadata {
@@ -63,10 +61,7 @@ export function createPageMetadata({
       images: [
         {
           url: absoluteUrl(image),
-          width: 1200,
-          height: 630,
           alt: imageAlt,
-          type: "image/png",
         },
       ],
     },
