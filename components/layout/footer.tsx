@@ -6,7 +6,7 @@ import { SocialIcon } from "@/components/ui/social-icons";
 import { Logo } from "./logo";
 
 export function Footer() {
-  const year = 2026;
+  const year = new Date().getFullYear();
 
   return (
     <footer className="relative overflow-hidden bg-ink text-fg-invert">
