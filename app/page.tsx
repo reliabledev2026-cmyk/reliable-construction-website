@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { AboutIntro } from "@/components/sections/about-intro";
 import { ConceptProjects } from "@/components/sections/concept-projects";
 import { CTA } from "@/components/sections/cta";
@@ -8,13 +7,19 @@ import { Process } from "@/components/sections/process";
 import { ServicesList } from "@/components/sections/services-list";
 import { TeamPreview } from "@/components/sections/team-preview";
 import { Section, SectionHeader } from "@/components/ui/section";
-import { company } from "@/data/company";
+import { createPageMetadata, siteDescription, siteTitle } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: `${company.name} — Your Dream Home, Our Commitment`,
-  description: company.description,
-  alternates: { canonical: "/" },
-};
+export const metadata = createPageMetadata({
+  title: siteTitle,
+  description: siteDescription,
+  path: "/",
+  absoluteTitle: true,
+  keywords: [
+    "house design and construction Bharatpur",
+    "house engineering consultancy Chitwan",
+    "residential design Nepal",
+  ],
+});
 
 export default function HomePage() {
   return (

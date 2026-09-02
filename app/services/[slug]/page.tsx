@@ -5,13 +5,15 @@ import { notFound } from "next/navigation";
 import { ServiceIcon } from "@/components/icon";
 import { PageHeader } from "@/components/layout/page-header";
 import { ResidentialProjectCard } from "@/components/projects/residential-project-card";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CTA } from "@/components/sections/cta";
 import { RevealImage } from "@/components/ui/media";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
-import { company } from "@/data/company";
 import { projectsForService } from "@/data/residential-projects";
 import { getService, services } from "@/data/services";
+import { createPageMetadata } from "@/lib/seo";
+import { serviceJsonLd } from "@/lib/structured-data";
 
 /** One static page per service. */
 export function generateStaticParams() {
@@ -23,18 +25,25 @@ export async function generateMetadata({
 }: PageProps<"/services/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const service = getService(slug);
-  if (!service) return { title: "Service not found" };
+  if (!service) {
+    return createPageMetadata({
+      title: "Service not found",
+      description: "The requested service page could not be found.",
+      path: `/services/${slug}`,
+      noIndex: true,
+    });
+  }
 
-  return {
+  return createPageMetadata({
     title: service.title,
     description: service.summary,
-    alternates: { canonical: `/services/${service.slug}` },
-    openGraph: {
-      title: `${service.title} — ${company.name}`,
-      description: service.summary,
-      images: [service.image],
-    },
-  };
+    path: `/services/${service.slug}`,
+    keywords: [
+      `${service.title.toLowerCase()} Bharatpur`,
+      `${service.title.toLowerCase()} Chitwan`,
+      "residential engineering consultancy Nepal",
+    ],
+  });
 }
 
 export default async function ServiceDetailPage({
@@ -49,6 +58,7 @@ export default async function ServiceDetailPage({
 
   return (
     <>
+      <JsonLd data={serviceJsonLd(service)} />
       <PageHeader
         index={String(number).padStart(2, "0")}
         label="Service"

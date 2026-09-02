@@ -1,25 +1,23 @@
-import type { Metadata } from "next";
 import { ResidentialProjectCard } from "@/components/projects/residential-project-card";
 import { PageHeader } from "@/components/layout/page-header";
 import { CTA } from "@/components/sections/cta";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
-import { company } from "@/data/company";
 import { IMG } from "@/data/images";
 import { residentialProjects } from "@/data/residential-projects";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Residential Projects",
   description:
     "Explore residential planning, exterior design and engineering concept studies from Reliable Consulting & Construction in Bharatpur, Chitwan.",
-  alternates: { canonical: "/projects" },
-  openGraph: {
-    title: `Residential Projects — ${company.name}`,
-    description:
-      "Residential concept studies showing how planning, design, structure and site guidance come together.",
-    images: [IMG.heroMain],
-  },
-};
+  path: "/projects",
+  keywords: [
+    "residential design concepts Bharatpur",
+    "house exterior design Chitwan",
+    "home planning portfolio Nepal",
+  ],
+});
 
 export default function ProjectsPage() {
   return (

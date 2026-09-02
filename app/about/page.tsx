@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { PageHeader } from "@/components/layout/page-header";
 import { CTA } from "@/components/sections/cta";
 import { RevealImage } from "@/components/ui/media";
@@ -6,17 +5,18 @@ import { DrawRule, Reveal, RevealGroup, RevealItem } from "@/components/ui/revea
 import { Section } from "@/components/ui/section";
 import { company, mission, values, vision } from "@/data/company";
 import { IMG } from "@/data/images";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "About the Practice",
   description: `${company.shortName} is a house engineering and construction consultancy in Bharatpur, Chitwan, coordinating planning, design, approval and site supervision.`,
-  alternates: { canonical: "/about" },
-  openGraph: {
-    title: `About — ${company.name}`,
-    description: company.description,
-    images: [IMG.modernHome],
-  },
-};
+  path: "/about",
+  keywords: [
+    "house engineering consultancy Bharatpur",
+    "residential consultants Chitwan",
+    "construction consultancy Nepal",
+  ],
+});
 
 export default function AboutPage() {
   return (

@@ -2,16 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ResidentialProjectCard } from "@/components/projects/residential-project-card";
 import { PageHeader } from "@/components/layout/page-header";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CTA } from "@/components/sections/cta";
 import { RevealImage } from "@/components/ui/media";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
-import { company } from "@/data/company";
 import {
   getResidentialProject,
   residentialProjects,
 } from "@/data/residential-projects";
 import { services } from "@/data/services";
+import { createPageMetadata } from "@/lib/seo";
+import { breadcrumbJsonLd } from "@/lib/structured-data";
 
 export const dynamicParams = false;
 
@@ -24,18 +26,25 @@ export async function generateMetadata({
 }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
   const project = getResidentialProject(slug);
-  if (!project) return { title: "Project not found" };
+  if (!project) {
+    return createPageMetadata({
+      title: "Project not found",
+      description: "The requested residential project page could not be found.",
+      path: `/projects/${slug}`,
+      noIndex: true,
+    });
+  }
 
-  return {
+  return createPageMetadata({
     title: project.title,
     description: project.summary,
-    alternates: { canonical: `/projects/${project.slug}` },
-    openGraph: {
-      title: `${project.title} — ${company.name}`,
-      description: project.summary,
-      images: [project.image],
-    },
-  };
+    path: `/projects/${project.slug}`,
+    keywords: [
+      `${project.title.toLowerCase()} Bharatpur`,
+      "residential concept design Chitwan",
+      "house planning Nepal",
+    ],
+  });
 }
 
 export default async function ProjectDetailPage({
@@ -55,6 +64,13 @@ export default async function ProjectDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+          { name: project.title, path: `/projects/${project.slug}` },
+        ])}
+      />
       <PageHeader
         index={String(projectIndex + 1).padStart(2, "0")}
         label={project.label}

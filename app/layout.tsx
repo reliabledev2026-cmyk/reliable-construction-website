@@ -3,8 +3,15 @@ import { Archivo, IBM_Plex_Mono, Manrope } from "next/font/google";
 import { ContactFab } from "@/components/layout/contact-fab";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
+import { JsonLd } from "@/components/seo/json-ld";
 import { company } from "@/data/company";
-import { IMG } from "@/data/images";
+import {
+  createPageMetadata,
+  siteDescription,
+  siteTitle,
+  siteUrl,
+} from "@/lib/seo";
+import { siteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 /* --------------------------------- fonts ---------------------------------- */
@@ -34,78 +41,83 @@ const plexMono = IBM_Plex_Mono({
 
 /* -------------------------------- metadata -------------------------------- */
 
+const defaultSeo = createPageMetadata({
+  title: siteTitle,
+  description: siteDescription,
+  path: "/",
+  absoluteTitle: true,
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL(company.url),
+  ...defaultSeo,
+  metadataBase: new URL(siteUrl),
   title: {
-    default: `${company.name} — House Planning, Design & Construction in Bharatpur`,
-    template: `%s — ${company.shortName}`,
+    default: siteTitle,
+    template: `%s | ${company.name}`,
   },
-  description: company.description,
+  description: siteDescription,
+  applicationName: company.name,
   keywords: [
+    "house engineering consultancy Bharatpur",
     "house design Bharatpur",
     "2D house plan Chitwan",
     "3D exterior design Nepal",
-    "residential structural analysis",
+    "structural analysis Chitwan",
     "municipality plan pass Bharatpur",
     "house construction supervision",
   ],
-  authors: [{ name: company.name }],
+  authors: [{ name: company.name, url: siteUrl }],
   creator: company.name,
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    url: company.url,
-    siteName: company.name,
-    title: `${company.name} — Your Dream Home, Our Commitment`,
-    description: company.description,
-    images: [
+  publisher: company.legalName,
+  category: "House engineering and construction",
+  referrer: "origin-when-cross-origin",
+  formatDetection: { email: false, address: false, telephone: false },
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
       {
-        url: IMG.heroMain,
-        width: 1200,
-        height: 630,
-        alt: "Residential building design and construction",
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: company.name,
-    description: company.description,
-    images: [IMG.heroMain],
+  appleWebApp: {
+    capable: true,
+    title: company.shortName,
+    statusBarStyle: "black-translucent",
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      noimageindex: false,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
-  alternates: { canonical: "/" },
+  verification: process.env.GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+    : undefined,
+  other: {
+    "geo.region": "NP-P3",
+    "geo.placename": "Bharatpur, Chitwan",
+    "geo.position": `${company.contact.coordinates.latitude};${company.contact.coordinates.longitude}`,
+    ICBM: `${company.contact.coordinates.latitude}, ${company.contact.coordinates.longitude}`,
+  },
 };
 
 export const viewport: Viewport = {
   themeColor: "#0b1319",
   colorScheme: "light",
-};
-
-/* ------------------------------ structured data --------------------------- */
-
-const organisationSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: company.name,
-  legalName: company.legalName,
-  url: company.url,
-  logo: new URL("/logo.jpg", company.url).toString(),
-  description: company.description,
-  email: company.contact.email,
-  telephone: company.contact.phone,
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: company.contact.address.line1,
-    addressLocality: company.contact.address.line2,
-    addressRegion: company.contact.address.city,
-    addressCountry: "NP",
-  },
-  areaServed: { "@type": "AdministrativeArea", name: "Chitwan, Nepal" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
@@ -131,12 +143,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Footer />
         <ContactFab />
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organisationSchema),
-          }}
-        />
+        <JsonLd data={siteJsonLd} />
       </body>
     </html>
   );

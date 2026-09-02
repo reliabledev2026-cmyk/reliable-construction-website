@@ -12,6 +12,20 @@ npm run lint
 npm run build
 ```
 
+## Production URL and search verification
+
+Set these in the Vercel project when a custom production domain is connected:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-final-domain.com
+GOOGLE_SITE_VERIFICATION=your-search-console-token
+```
+
+`NEXT_PUBLIC_SITE_URL` controls canonical URLs, social metadata, structured
+data, robots and the sitemap. It falls back to the current production URL in
+`data/company.ts`. Vercel preview deployments are blocked from crawling while
+the production deployment remains indexable.
+
 ## Live routes
 
 - `/` — home, services preview, concept projects, team, process and Facebook updates
@@ -34,6 +48,10 @@ The project has no backend, database, CMS or authentication. The contact form
 validates in the browser and opens a pre-filled email addressed to the company.
 The homepage Facebook timeline and contact-page map use their official embeds.
 
-All photography currently comes from the small, central registry in
-`data/images.ts`. Replace a registry URL with a local `/public/...` path when
-approved company photography becomes available.
+All photography is stored locally in `public/images` and referenced through
+`data/images.ts`. Replace a registry path when approved company photography
+becomes available.
+
+The SEO setup includes canonical page metadata, Open Graph and social cards,
+Schema.org organization/service data, an image sitemap, robots rules and a web
+app manifest. After launch, submit `/sitemap.xml` through Google Search Console.

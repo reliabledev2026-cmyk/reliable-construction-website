@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,22 +7,22 @@ import { CTA } from "@/components/sections/cta";
 import { Process } from "@/components/sections/process";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
-import { company } from "@/data/company";
 import { IMG } from "@/data/images";
 import { additionalServices, services } from "@/data/services";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "House Engineering Services",
   description:
     "House planning, 3D exterior design, structural analysis, site supervision and municipality plan-pass support in Bharatpur, Chitwan.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    title: `House Engineering Services — ${company.name}`,
-    description:
-      "Five coordinated services for homeowners, from the first floor plan through municipality documentation and construction supervision.",
-    images: [IMG.blueprint],
-  },
-};
+  path: "/services",
+  keywords: [
+    "house planning services Bharatpur",
+    "structural design Chitwan",
+    "municipality plan pass Bharatpur",
+    "construction site supervision Nepal",
+  ],
+});
 
 export default function ServicesPage() {
   return (

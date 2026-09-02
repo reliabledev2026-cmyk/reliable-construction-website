@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { ArrowUpRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact/contact-form";
 import { PageHeader } from "@/components/layout/page-header";
@@ -6,18 +5,18 @@ import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { company } from "@/data/company";
 import { IMG } from "@/data/images";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact",
   description: `Discuss your house planning, design or construction needs with ${company.name} in Bharatpur, Chitwan.`,
-  alternates: { canonical: "/contact" },
-  openGraph: {
-    title: `Contact — ${company.name}`,
-    description:
-      "Visit our main office beside Hakimchowk Bigmart in Bharatpur, Chitwan, or contact us by phone, WhatsApp or email.",
-    images: [IMG.concreteBuilding],
-  },
-};
+  path: "/contact",
+  keywords: [
+    "engineering consultant Hakimchowk",
+    "house consultant Bharatpur contact",
+    "construction consultancy Chitwan",
+  ],
+});
 
 export default function ContactPage() {
   const { contact } = company;

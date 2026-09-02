@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import { LegalPage, type LegalSection } from "@/components/layout/legal-page";
 import { company } from "@/data/company";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Terms & Conditions",
   description: `Terms governing use of the ${company.name} website and the information published on it.`,
-  alternates: { canonical: "/terms" },
-  robots: { index: true, follow: true },
-};
+  path: "/terms",
+});
 
 /** Placeholder copy — have this reviewed by a legal adviser before launch. */
 const sections: LegalSection[] = [

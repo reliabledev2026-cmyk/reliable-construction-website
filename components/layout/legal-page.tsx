@@ -2,6 +2,7 @@ import { PageHeader } from "@/components/layout/page-header";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { company } from "@/data/company";
+import { siteUrl } from "@/lib/seo";
 
 export type LegalSection = { heading: string; body: string[] };
 
@@ -32,7 +33,7 @@ export function LegalPage({
         align="narrow"
         meta={[
           { k: "Last updated", v: updated },
-          { k: "Applies to", v: company.url.replace("https://", "") },
+          { k: "Applies to", v: siteUrl.replace("https://", "") },
         ]}
       />
 

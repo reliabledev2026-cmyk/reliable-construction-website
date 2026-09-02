@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
-import { company } from "@/data/company";
+import { absoluteUrl, siteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
+  const isVercelPreview = process.env.VERCEL_ENV === "preview";
+
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${company.url}/sitemap.xml`,
-    host: company.url,
+    rules: isVercelPreview
+      ? { userAgent: "*", disallow: "/" }
+      : { userAgent: "*", allow: "/" },
+    sitemap: absoluteUrl("/sitemap.xml"),
+    host: siteUrl,
   };
 }
