@@ -2,10 +2,12 @@ import { AboutIntro } from "@/components/sections/about-intro";
 import { ConceptProjects } from "@/components/sections/concept-projects";
 import { CTA } from "@/components/sections/cta";
 import { FacebookNotices } from "@/components/sections/facebook-notices";
+import { FAQ } from "@/components/sections/faq";
 import { Hero } from "@/components/sections/hero";
 import { Process } from "@/components/sections/process";
 import { ServicesList } from "@/components/sections/services-list";
 import { TeamPreview } from "@/components/sections/team-preview";
+import { Testimonials } from "@/components/sections/testimonials";
 import { Section, SectionHeader } from "@/components/ui/section";
 import { IMG } from "@/data/images";
 import { createPageMetadata, siteDescription, siteTitle } from "@/lib/seo";
@@ -51,8 +53,10 @@ export default function HomePage() {
       <ConceptProjects />
       <TeamPreview />
       <Process />
+      <Testimonials />
+      <FAQ />
       <FacebookNotices />
-      <CTA index="07" />
+      <CTA index="09" />
     </>
   );
 }

@@ -34,7 +34,7 @@ for local development and add the same variables in Vercel project settings.
 
 ## Live routes
 
-- `/` — home, services preview, concept projects, team, process and Facebook updates
+- `/` — home, services preview, concept projects, team, process, testimonials, FAQ and Facebook updates
 - `/about` — company approach, mission, vision and working principles
 - `/services` and `/services/[slug]` — five residential engineering services
 - `/projects` and `/projects/[slug]` — residential concept portfolio

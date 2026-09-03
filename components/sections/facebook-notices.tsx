@@ -100,7 +100,7 @@ export function FacebookNotices() {
       <div className="shell">
         <Reveal>
           <div className="label flex items-center gap-3 text-fg-subtle">
-            <span className="text-accent">§ 06</span>
+            <span className="text-accent">§ 08</span>
             <span aria-hidden className="h-px w-8 bg-line-strong" />
             <span>News &amp; Notices</span>
           </div>

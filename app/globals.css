@@ -311,6 +311,37 @@
   animation: panel-out 0.2s ease-in forwards;
 }
 
+/* Radix FAQ accordion — animates to the measured content height. */
+@keyframes faq-open {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes faq-close {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.faq-content[data-state="open"] {
+  animation: faq-open 0.5s var(--ease-out-expo);
+}
+
+.faq-content[data-state="closed"] {
+  animation: faq-close 0.35s var(--ease-out-expo);
+}
+
 /* Thin custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
