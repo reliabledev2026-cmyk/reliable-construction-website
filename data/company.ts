@@ -24,7 +24,7 @@ export const company = {
   intro:
     "Reliable Consulting & Construction helps homeowners move confidently from an initial idea to a buildable home. From our Bharatpur office, we coordinate house planning, exterior design, structural analysis, municipality documentation and construction supervision as one practical service.",
 
-  url: "https://reliable-consulting-and-construction-website.vercel.app",
+  url: "https://reliable-construction-website.vercel.app",
 
   contact: {
     officeName: "Main Office",
