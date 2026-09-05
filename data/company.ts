@@ -120,6 +120,6 @@ export const navLinks = [
 ] as const;
 
 export const legalLinks = [
-  { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
 ] as const;

@@ -155,16 +155,19 @@ export function Footer() {
 
         {/* ------------------------------ bottom bar --------------------------- */}
         <div className="border-t border-white/10">
-          <Reveal className="shell flex flex-col gap-4 py-7 text-xs md:flex-row md:items-center md:justify-between" variants={fadeIn}>
-            <p className="text-fg-invert-subtle">
-              © {year} {company.legalName} All rights reserved.
+          <div className="shell flex flex-col gap-4 py-7 text-xs md:flex-row md:items-center md:justify-between">
+            <p className="text-fg-invert-muted">
+              © {year} {company.legalName}. All rights reserved.
             </p>
-            <div className="flex flex-wrap items-center gap-x-7 gap-y-2">
+            <nav
+              aria-label="Legal information"
+              className="flex flex-wrap items-center gap-x-7 gap-y-3"
+            >
               {legalLinks.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="text-fg-invert-subtle transition-colors duration-400 ease-out-expo hover:text-fg-invert"
+                  className="text-fg-invert-muted underline-offset-4 transition-colors duration-400 ease-out-expo hover:text-fg-invert hover:underline"
                 >
                   {l.label}
                 </Link>
@@ -172,8 +175,8 @@ export function Footer() {
               <span className="font-mono text-[0.625rem] tracking-[0.15em] text-fg-invert-subtle">
                 Bharatpur / Chitwan
               </span>
-            </div>
-          </Reveal>
+            </nav>
+          </div>
         </div>
       </div>
     </footer>
