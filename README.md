@@ -36,7 +36,7 @@ for local development and add the same variables in Vercel project settings.
 
 - `/` — home, services preview, concept projects, team, process, testimonials, FAQ and Facebook updates
 - `/about` — company approach, mission, vision and working principles
-- `/services` and `/services/[slug]` — five residential engineering services
+- `/services` and `/services/[slug]` — integrated residential consultancy services
 - `/projects` and `/projects/[slug]` — residential concept portfolio
 - `/contact` — contact details, protected Web3Forms enquiry and Google Maps location
 - `/privacy` and `/terms` — legal information

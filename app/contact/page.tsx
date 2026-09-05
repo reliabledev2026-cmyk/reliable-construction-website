@@ -125,7 +125,7 @@ export default function ContactPage() {
               >
                 Open in Google Maps
                 <ArrowUpRight
-                  className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  className="size-3.5 transition-transform duration-400 ease-out-expo group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden
                 />
               </a>

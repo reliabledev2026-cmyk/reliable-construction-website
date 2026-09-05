@@ -1,6 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +24,7 @@ import { EASE, fadeUp, stagger, viewportOnce } from "@/lib/motion";
  */
 export function ServicesList() {
   const [active, setActive] = React.useState<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   // Raw pointer position, smoothed so the plate trails the cursor slightly.
   const x = useMotionValue(0);
@@ -44,9 +51,9 @@ export function ServicesList() {
           <motion.li key={service.slug} variants={fadeUp} className="border-b border-line">
             <Link
               href={`/services/${service.slug}`}
-              onMouseEnter={() => setActive(i)}
-              onFocus={() => setActive(i)}
-              onBlur={() => setActive(null)}
+              onMouseEnter={() => {
+                if (!prefersReducedMotion) setActive(i);
+              }}
               className="group relative flex items-center gap-5 py-7 md:gap-10 md:py-9"
             >
               {/* Accent wash that wipes in from the left on hover */}

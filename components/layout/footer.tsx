@@ -3,6 +3,8 @@ import Link from "next/link";
 import { company, legalLinks, navLinks } from "@/data/company";
 import { services } from "@/data/services";
 import { SocialIcon } from "@/components/ui/social-icons";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
+import { fadeIn } from "@/lib/motion";
 import { Logo } from "./logo";
 
 export function Footer() {
@@ -14,9 +16,12 @@ export function Footer() {
 
       <div className="relative">
         {/* ------------------------------ columns ------------------------------ */}
-        <div className="shell grid grid-cols-2 gap-x-8 gap-y-14 py-20 md:grid-cols-4 lg:grid-cols-12 lg:py-24">
+        <RevealGroup
+          gap={0.07}
+          className="shell grid grid-cols-2 gap-x-8 gap-y-14 py-20 md:grid-cols-4 lg:grid-cols-12 lg:py-24"
+        >
           {/* Identity */}
-          <div className="col-span-2 md:col-span-4 lg:col-span-4">
+          <RevealItem className="col-span-2 md:col-span-4 lg:col-span-4">
             <Logo invert imageClassName="size-14" />
             <p className="mt-7 max-w-xs text-sm leading-relaxed text-fg-invert-muted">
               {company.description}
@@ -30,75 +35,79 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={s.label}
-                    className="flex size-10 items-center justify-center border border-white/15 text-fg-invert-muted transition-colors duration-400 hover:border-accent hover:bg-accent hover:text-white"
+                    className="flex size-10 items-center justify-center border border-white/15 text-fg-invert-muted transition-[color,background-color,border-color,transform] duration-400 ease-out-expo hover:-translate-y-1 hover:border-accent hover:bg-accent hover:text-white"
                   >
                     <SocialIcon name={s.icon} className="size-4" />
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </RevealItem>
 
           {/* Navigate */}
-          <nav
-            aria-labelledby="footer-nav"
-            className="lg:col-span-2 lg:col-start-6"
-          >
-            <p id="footer-nav" className="label text-fg-invert-subtle">
-              Company
-            </p>
-            <ul className="mt-6 flex flex-col gap-3.5 text-sm">
-              {navLinks.map((l) => (
-                <li key={l.href}>
+          <RevealItem className="lg:col-span-2 lg:col-start-6">
+            <nav aria-labelledby="footer-nav">
+              <p id="footer-nav" className="label text-fg-invert-subtle">
+                Company
+              </p>
+              <ul className="mt-6 flex flex-col gap-3.5 text-sm">
+                {navLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      className="inline-block text-fg-invert-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
+                    >
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+                <li>
                   <Link
-                    href={l.href}
-                    className="text-fg-invert-muted transition-colors hover:text-accent-soft"
+                    href="/contact"
+                    className="inline-block text-fg-invert-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
                   >
-                    {l.label}
+                    Contact
                   </Link>
                 </li>
-              ))}
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-fg-invert-muted transition-colors hover:text-accent-soft"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          </RevealItem>
 
           {/* Services */}
-          <nav aria-labelledby="footer-services" className="lg:col-span-2">
-            <p id="footer-services" className="label text-fg-invert-subtle">
-              Expertise
-            </p>
-            <ul className="mt-6 flex flex-col gap-3.5 text-sm">
-              {services.slice(0, 7).map((s) => (
-                <li key={s.slug}>
+          <RevealItem className="lg:col-span-2">
+            <nav aria-labelledby="footer-services">
+              <p id="footer-services" className="label text-fg-invert-subtle">
+                Expertise
+              </p>
+              <ul className="mt-6 flex flex-col gap-3.5 text-sm">
+                {services.slice(0, 7).map((s) => (
+                  <li key={s.slug}>
+                    <Link
+                      href={`/services/${s.slug}`}
+                      className="inline-block text-fg-invert-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
+                    >
+                      {s.title}
+                    </Link>
+                  </li>
+                ))}
+                <li>
                   <Link
-                    href={`/services/${s.slug}`}
-                    className="text-fg-invert-muted transition-colors hover:text-accent-soft"
+                    href="/services"
+                    className="group inline-flex items-center gap-1.5 text-accent-soft"
                   >
-                    {s.title}
+                    All services
+                    <ArrowUpRight
+                      className="size-3.5 transition-transform duration-400 ease-out-expo group-hover:translate-x-1 group-hover:-translate-y-1"
+                      aria-hidden
+                    />
                   </Link>
                 </li>
-              ))}
-              <li>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center gap-1.5 text-accent-soft"
-                >
-                  All services
-                  <ArrowUpRight className="size-3.5" aria-hidden />
-                </Link>
-              </li>
-            </ul>
-          </nav>
+              </ul>
+            </nav>
+          </RevealItem>
 
           {/* Contact */}
-          <div className="col-span-2 md:col-span-2 lg:col-span-3 lg:col-start-10">
+          <RevealItem className="col-span-2 md:col-span-2 lg:col-span-3 lg:col-start-10">
             <p className="label text-fg-invert-subtle">
               {company.contact.officeName}
             </p>
@@ -112,13 +121,13 @@ export function Footer() {
             <div className="mt-6 flex flex-col gap-2 text-sm">
               <a
                 href={`tel:${company.contact.phone.replace(/\s/g, "")}`}
-                className="text-fg-invert transition-colors hover:text-accent-soft"
+                className="inline-block text-fg-invert transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
               >
                 {company.contact.phone}
               </a>
               <a
                 href={`mailto:${company.contact.email}`}
-                className="text-fg-invert-muted transition-colors hover:text-accent-soft"
+                className="inline-block text-fg-invert-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
               >
                 {company.contact.email}
               </a>
@@ -126,27 +135,27 @@ export function Footer() {
                 href={company.contact.whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-fg-invert-muted transition-colors hover:text-accent-soft"
+                className="inline-block text-fg-invert-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent-soft"
               >
                 WhatsApp: {company.contact.phoneAlt}
               </a>
             </div>
-          </div>
-        </div>
+          </RevealItem>
+        </RevealGroup>
 
         {/* --------------------------- oversized mark -------------------------- */}
-        <div className="shell pb-10">
+        <Reveal className="shell pb-10" variants={fadeIn}>
           <p
             aria-hidden
             className="select-none font-display text-[clamp(3rem,13vw,12rem)] font-bold leading-[0.8] tracking-[-0.05em] text-white/[0.06]"
           >
             {company.logo.line1}
           </p>
-        </div>
+        </Reveal>
 
         {/* ------------------------------ bottom bar --------------------------- */}
         <div className="border-t border-white/10">
-          <div className="shell flex flex-col gap-4 py-7 text-xs md:flex-row md:items-center md:justify-between">
+          <Reveal className="shell flex flex-col gap-4 py-7 text-xs md:flex-row md:items-center md:justify-between" variants={fadeIn}>
             <p className="text-fg-invert-subtle">
               © {year} {company.legalName} All rights reserved.
             </p>
@@ -155,7 +164,7 @@ export function Footer() {
                 <Link
                   key={l.href}
                   href={l.href}
-                  className="text-fg-invert-subtle transition-colors hover:text-fg-invert"
+                  className="text-fg-invert-subtle transition-colors duration-400 ease-out-expo hover:text-fg-invert"
                 >
                   {l.label}
                 </Link>
@@ -164,7 +173,7 @@ export function Footer() {
                 Bharatpur / Chitwan
               </span>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </footer>

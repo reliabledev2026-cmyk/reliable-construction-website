@@ -38,7 +38,7 @@ export default function HomePage() {
           label="Our Expertise"
           title={
             <>
-              Five home services,
+              Complete home services,
               <br />
               one coordinated team.
             </>

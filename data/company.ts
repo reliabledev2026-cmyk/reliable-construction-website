@@ -18,11 +18,11 @@ export const company = {
   legalName: "Reliable Consulting & Construction Pvt. Ltd.",
   tagline: "Your dream home. Our commitment.",
   description:
-    "A house engineering and construction consultancy in Bharatpur, Chitwan, providing 2D house plans, 3D exterior design, structural analysis, municipality plan-pass support and site supervision.",
+    "A house engineering and construction consultancy in Bharatpur, Chitwan, providing property valuation, house planning, 3D rendering, structural design, municipal drawings, interior planning and site supervision.",
 
   /** One-paragraph elevator pitch, used on the home page and in metadata. */
   intro:
-    "Reliable Consulting & Construction helps homeowners move confidently from an initial idea to a buildable home. From our Bharatpur office, we coordinate house planning, exterior design, structural analysis, municipality documentation and construction supervision as one practical service.",
+    "Reliable Consulting & Construction helps homeowners move confidently from an initial idea to a buildable home. From our Bharatpur office, we connect early consultation and property advice with house planning, exterior visualisation, structural design, municipal documentation, interior planning and construction supervision.",
 
   url: "https://reliable-construction-website.vercel.app",
 

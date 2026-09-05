@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { company } from "@/data/company";
 import { services } from "@/data/services";
-import { EASE } from "@/lib/motion";
+import { EASE, fadeUp, stagger } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /**
@@ -184,9 +184,10 @@ export function ContactForm() {
         ) : (
           <motion.form
             key="form"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial="hidden"
+            animate="show"
             exit={{ opacity: 0 }}
+            variants={stagger(0.035, 0.04)}
             onSubmit={handleSubmit(onSubmit)}
             noValidate
             className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2"
@@ -335,7 +336,7 @@ export function ContactForm() {
               </Field>
             </div>
 
-            <div className="pt-2 sm:col-span-2">
+            <motion.div variants={fadeUp} className="pt-2 sm:col-span-2">
               <div className="flex justify-start">
                 <HCaptcha
                   ref={captchaRef}
@@ -370,9 +371,12 @@ export function ContactForm() {
                   {captchaError}
                 </p>
               )}
-            </div>
+            </motion.div>
 
-            <div className="flex flex-col gap-5 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-col gap-5 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between"
+            >
               <p className="max-w-sm text-xs leading-relaxed text-fg-subtle">
                 We’ll use your details only to understand your project and get
                 back to you. Your information stays private.
@@ -402,7 +406,7 @@ export function ContactForm() {
                   </>
                 )}
               </button>
-            </div>
+            </motion.div>
           </motion.form>
         )}
       </AnimatePresence>
@@ -435,7 +439,7 @@ function Field({
   children: React.ReactNode;
 }) {
   return (
-    <div>
+    <motion.div variants={fadeUp}>
       <label htmlFor={id} className="label flex items-center gap-1.5 text-fg-subtle">
         {label}
         {required && (
@@ -457,6 +461,6 @@ function Field({
           {error}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }

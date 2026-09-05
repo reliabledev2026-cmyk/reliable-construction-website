@@ -5,6 +5,7 @@ import { DrawRule, Reveal, RevealGroup, RevealItem } from "@/components/ui/revea
 import { Section } from "@/components/ui/section";
 import { company, mission, values, vision } from "@/data/company";
 import { IMG } from "@/data/images";
+import { services } from "@/data/services";
 import { createPageMetadata } from "@/lib/seo";
 
 export const metadata = createPageMetadata({
@@ -37,7 +38,7 @@ export default function AboutPage() {
         image={IMG.modernHome}
         meta={[
           { k: "Main office", v: "Bharatpur, Chitwan" },
-          { k: "Core services", v: "Five" },
+          { k: "Core services", v: String(services.length) },
           { k: "Project focus", v: "Residential" },
           { k: "Support", v: "Plan to site" },
         ]}

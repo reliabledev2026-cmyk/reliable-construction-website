@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -28,6 +28,7 @@ function HeadingLine({ text, delay }: { text: string; delay: number }) {
 
 export function Hero() {
   const ref = React.useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -42,7 +43,10 @@ export function Hero() {
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-ink text-fg-invert md:justify-end"
     >
       {/* ------------------------------- backdrop ------------------------------ */}
-      <motion.div className="absolute inset-0" style={{ y: imageY }}>
+      <motion.div
+        className="absolute inset-0"
+        style={{ y: prefersReducedMotion ? "0%" : imageY }}
+      >
         <motion.div
           className="relative h-[112%] w-full"
           initial={{ scale: 1.08 }}
@@ -73,7 +77,7 @@ export function Hero() {
 
       {/* ------------------------------- content ------------------------------- */}
       <motion.div
-        style={{ opacity: contentOpacity }}
+        style={{ opacity: prefersReducedMotion ? 1 : contentOpacity }}
         className="relative shell pb-8 pt-28 sm:pt-32 md:pb-16"
       >
         {/* The headline takes the full sheet width so it holds two lines */}
@@ -151,7 +155,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.3 }}
-        style={{ opacity: contentOpacity }}
+        style={{ opacity: prefersReducedMotion ? 1 : contentOpacity }}
         className="relative shell hidden pb-8 md:block"
       >
         <div className="flex items-center gap-4">
@@ -159,7 +163,7 @@ export function Hero() {
           <span className="relative h-px w-24 overflow-hidden bg-white/20">
             <motion.span
               className="absolute inset-y-0 left-0 w-1/3 bg-accent"
-              animate={{ x: ["-100%", "300%"] }}
+              animate={prefersReducedMotion ? undefined : { x: ["-100%", "300%"] }}
               transition={{
                 duration: 2.4,
                 ease: "easeInOut",

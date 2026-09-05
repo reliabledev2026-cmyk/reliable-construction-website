@@ -10,7 +10,7 @@ import { absoluteUrl } from "@/lib/seo";
  * signal every time the sitemap is requested.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const contentLastModified = "2026-09-02";
+  const contentLastModified = "2026-09-05";
 
   const staticRoutes = [
     {

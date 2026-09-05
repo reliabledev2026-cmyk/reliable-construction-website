@@ -10,7 +10,7 @@ export const siteUrl = new URL(configuredSiteUrl).origin;
 export const siteTitle = company.name;
 
 export const siteDescription =
-  "Reliable Consulting & Construction provides 2D house plans, 3D exterior design, structural analysis, plan-pass support and site supervision in Bharatpur.";
+  "Reliable Consulting & Construction provides property valuation, house planning, 3D rendering, structural design, municipal drawings, interior planning and site supervision in Bharatpur.";
 
 export function absoluteUrl(path = "/") {
   return new URL(path, `${siteUrl}/`).toString();

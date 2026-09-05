@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { RevealImage } from "@/components/ui/media";
 import type { ResidentialProject } from "@/data/residential-projects";
 
 export function ResidentialProjectCard({
@@ -13,29 +13,28 @@ export function ResidentialProjectCard({
   return (
     <article className="group">
       <Link href={`/projects/${project.slug}`} className="block">
-        <div className="relative aspect-4/3 overflow-hidden bg-paper-2">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            priority={priority}
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-            className="object-cover transition-transform duration-[1.1s] ease-out-expo group-hover:scale-[1.035]"
-          />
+        <RevealImage
+          src={project.image}
+          alt={project.title}
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          className="aspect-4/3 bg-paper-2"
+          imgClassName="group-hover:scale-[1.035]"
+        >
           <span
             aria-hidden
-            className="absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-transparent"
+            className="absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-transparent transition-colors duration-700 group-hover:from-ink/65"
           />
           <span className="label absolute bottom-4 left-4 text-white/85">
             {project.label}
           </span>
-        </div>
+        </RevealImage>
 
         <div className="border-b border-line py-6">
           <div className="flex items-start justify-between gap-6">
             <div>
               <p className="label text-accent">{project.location}</p>
-              <h3 className="display-sm mt-3 transition-transform duration-500 ease-out-expo group-hover:translate-x-1">
+              <h3 className="display-sm mt-3 transition-[color,transform] duration-500 ease-out-expo group-hover:translate-x-1 group-hover:text-accent-deep">
                 {project.title}
               </h3>
             </div>

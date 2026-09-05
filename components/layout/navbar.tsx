@@ -86,7 +86,7 @@ export function Navbar() {
                       <div className="border border-line bg-paper shadow-[0_24px_60px_-24px_rgba(11,19,25,0.35)]">
                         <div className="flex items-center justify-between border-b border-line px-7 py-4">
                           <span className="label text-fg-subtle">
-                            Five home-building services · one team
+                            Complete home-building services · one team
                           </span>
                           <NavigationMenu.Link asChild>
                             <Link
@@ -107,7 +107,7 @@ export function Navbar() {
                                   href={`/services/${service.slug}`}
                                   className="group/item flex items-baseline gap-4 px-3 py-2.5 transition-colors duration-300 hover:bg-paper-2"
                                 >
-                                  <span className="font-mono text-[0.625rem] tracking-[0.15em] text-fg-subtle transition-colors group-hover/item:text-accent">
+                                  <span className="font-mono text-[0.625rem] tracking-[0.15em] text-fg-subtle transition-colors duration-400 ease-out-expo group-hover/item:text-accent">
                                     {String(i + 1).padStart(2, "0")}
                                   </span>
                                   <span className="flex-1">

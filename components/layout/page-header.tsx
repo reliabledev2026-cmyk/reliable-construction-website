@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
-import { Reveal } from "@/components/ui/reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /**
@@ -54,7 +54,7 @@ export function PageHeader({
             <nav aria-label="Breadcrumb" className="mb-8">
               <Link
                 href={breadcrumb.href}
-                className="label text-fg-invert-subtle transition-colors hover:text-accent-soft"
+                className="label text-fg-invert-subtle transition-colors duration-400 ease-out-expo hover:text-accent-soft"
               >
                 ← {breadcrumb.label}
               </Link>
@@ -88,16 +88,21 @@ export function PageHeader({
         )}
 
         {meta && meta.length > 0 && (
-          <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-white/12 pt-6 sm:grid-cols-4">
-            {meta.map((m, index) => (
-              <Reveal key={m.k} delay={0.16 + index * 0.05}>
-                  <dt className="label text-fg-invert-subtle">{m.k}</dt>
-                  <dd className="mt-2.5 font-display text-base font-semibold tracking-tight">
-                    {m.v}
-                  </dd>
-              </Reveal>
+          <RevealGroup
+            as="dl"
+            delay={0.16}
+            gap={0.05}
+            className="mt-10 grid grid-cols-2 gap-x-8 gap-y-7 border-t border-white/12 pt-6 sm:grid-cols-4"
+          >
+            {meta.map((m) => (
+              <RevealItem key={m.k}>
+                <dt className="label text-fg-invert-subtle">{m.k}</dt>
+                <dd className="mt-2.5 font-display text-base font-semibold tracking-tight">
+                  {m.v}
+                </dd>
+              </RevealItem>
             ))}
-          </dl>
+          </RevealGroup>
         )}
       </div>
     </header>

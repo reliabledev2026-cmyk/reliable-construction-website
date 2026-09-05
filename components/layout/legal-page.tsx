@@ -50,7 +50,7 @@ export function LegalPage({
                 <li key={s.heading}>
                   <a
                     href={`#s-${i + 1}`}
-                    className="flex gap-3 text-sm text-fg-muted transition-colors hover:text-accent"
+                    className="flex gap-3 text-sm text-fg-muted transition-[color,transform] duration-400 ease-out-expo hover:translate-x-1 hover:text-accent"
                   >
                     <span className="font-mono text-[0.625rem] tracking-[0.15em] text-fg-subtle">
                       {String(i + 1).padStart(2, "0")}

@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { RevealImage } from "@/components/ui/media";
 import { Reveal } from "@/components/ui/reveal";
 import { company } from "@/data/company";
 import { IMG } from "@/data/images";
@@ -29,12 +29,13 @@ export function CTA({
     <section className="relative isolate overflow-hidden bg-ink text-fg-invert">
       {/* Architectural backdrop, held well back so the type stays dominant */}
       <div className="absolute inset-0" aria-hidden>
-        <Image
+        <RevealImage
           src={image}
           alt=""
-          fill
           sizes="100vw"
-          className="object-cover opacity-25"
+          className="absolute inset-0"
+          imgClassName="opacity-25"
+          hover={false}
         />
         <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/55" />
         <div className="blueprint-grid absolute inset-0 opacity-80" />
@@ -73,7 +74,7 @@ export function CTA({
                 className="group flex items-baseline justify-between gap-4"
               >
                 <span className="label text-fg-invert-subtle">Call</span>
-                <span className="font-display text-base font-semibold tracking-tight transition-colors group-hover:text-accent-soft">
+                <span className="font-display text-base font-semibold tracking-tight transition-colors duration-400 ease-out-expo group-hover:text-accent-soft">
                   {company.contact.phone}
                 </span>
               </a>
@@ -82,7 +83,7 @@ export function CTA({
                 className="group flex items-baseline justify-between gap-4"
               >
                 <span className="label text-fg-invert-subtle">Email</span>
-                <span className="text-sm text-fg-invert-muted transition-colors group-hover:text-accent-soft">
+                <span className="text-sm text-fg-invert-muted transition-colors duration-400 ease-out-expo group-hover:text-accent-soft">
                   {company.contact.email}
                 </span>
               </a>
@@ -93,7 +94,7 @@ export function CTA({
                 className="group flex items-baseline justify-between gap-4"
               >
                 <span className="label text-fg-invert-subtle">WhatsApp</span>
-                <span className="text-sm text-fg-invert-muted transition-colors group-hover:text-accent-soft">
+                <span className="text-sm text-fg-invert-muted transition-colors duration-400 ease-out-expo group-hover:text-accent-soft">
                   {company.contact.phoneAlt}
                 </span>
               </a>

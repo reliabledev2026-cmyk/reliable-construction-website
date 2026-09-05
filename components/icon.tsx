@@ -1,12 +1,17 @@
 import {
+  Armchair,
   Building2,
+  CircleDollarSign,
   ClipboardList,
   Compass,
   Construction,
   Droplets,
+  FileText,
   HardHat,
   Leaf,
+  MessageSquare,
   Mountain,
+  PencilRuler,
   Route,
   Zap,
   type LucideIcon,
@@ -28,6 +33,11 @@ export const ICONS: Record<string, LucideIcon> = {
   leaf: Leaf,
   clipboard: ClipboardList,
   hardhat: HardHat,
+  valuation: CircleDollarSign,
+  drawing: PencilRuler,
+  report: FileText,
+  interior: Armchair,
+  consultation: MessageSquare,
 };
 
 export function ServiceIcon({

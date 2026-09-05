@@ -50,6 +50,10 @@ export const residentialProjects: ResidentialProject[] = [
       "2d-house-planning",
       "3d-exterior-design",
       "structural-analysis",
+      "structural-drawings",
+      "interior-planning-furnishing",
+      "site-supervision",
+      "consultation-feasibility",
     ],
   },
   {
@@ -82,7 +86,10 @@ export const residentialProjects: ResidentialProject[] = [
     serviceSlugs: [
       "2d-house-planning",
       "3d-exterior-design",
+      "structural-analysis",
+      "structural-drawings",
       "municipality-plan-pass",
+      "consultation-feasibility",
     ],
   },
   {
@@ -115,8 +122,10 @@ export const residentialProjects: ResidentialProject[] = [
     serviceSlugs: [
       "2d-house-planning",
       "structural-analysis",
+      "structural-drawings",
       "site-supervision",
       "municipality-plan-pass",
+      "master-plan-project-report",
     ],
   },
 ];

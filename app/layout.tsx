@@ -4,6 +4,7 @@ import { ContactFab } from "@/components/layout/contact-fab";
 import { Footer } from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 import { JsonLd } from "@/components/seo/json-ld";
+import { MotionProvider } from "@/components/ui/motion-provider";
 import { company } from "@/data/company";
 import { IMG } from "@/data/images";
 import {
@@ -131,20 +132,22 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${archivo.variable} ${manrope.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="grain flex min-h-full flex-col bg-paper">
-        {/* Keyboard users can jump the navigation */}
-        <a
-          href="#main"
-          className="label sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-[200] focus:bg-ink focus:px-5 focus:py-3 focus:text-fg-invert"
-        >
-          Skip to content
-        </a>
+        <MotionProvider>
+          {/* Keyboard users can jump the navigation */}
+          <a
+            href="#main"
+            className="label sr-only focus:not-sr-only focus:fixed focus:left-5 focus:top-5 focus:z-[200] focus:bg-ink focus:px-5 focus:py-3 focus:text-fg-invert"
+          >
+            Skip to content
+          </a>
 
-        <Navbar />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <ContactFab />
+          <Navbar />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+          <ContactFab />
+        </MotionProvider>
 
         <JsonLd data={siteJsonLd} />
       </body>

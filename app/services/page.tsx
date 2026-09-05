@@ -1,10 +1,10 @@
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { ServiceIcon } from "@/components/icon";
 import { PageHeader } from "@/components/layout/page-header";
 import { CTA } from "@/components/sections/cta";
 import { Process } from "@/components/sections/process";
+import { RevealImage } from "@/components/ui/media";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { IMG } from "@/data/images";
@@ -14,7 +14,7 @@ import { createPageMetadata } from "@/lib/seo";
 export const metadata = createPageMetadata({
   title: "House Engineering Services",
   description:
-    "House planning, 3D exterior design, structural analysis, site supervision and municipality plan-pass support in Bharatpur, Chitwan.",
+    "Property valuation, house planning, 3D rendering, structural design, municipal drawings, interior planning and site supervision in Bharatpur, Chitwan.",
   path: "/services",
   image: IMG.blueprint,
   imageAlt: "Residential house plan and engineering drawing",
@@ -34,7 +34,7 @@ export default function ServicesPage() {
         label="Our Expertise"
         title={
           <>
-            Five services,
+            Complete services,
             <br />
             one home-building partner.
           </>
@@ -54,20 +54,20 @@ export default function ServicesPage() {
         <RevealGroup gap={0.05} className="shell">
           <RevealItem>
             <p className="lede max-w-3xl">
-              A house should not be split into disconnected drawings. We
-              coordinate the floor plan, exterior, structural system,
-              municipality submission and site guidance so decisions made at
-              one stage remain practical at the next.
+              From an early property decision to construction on site, each
+              service is scoped clearly and coordinated with the stages around
+              it. Start with one assignment or ask us to connect the complete
+              route for your project.
             </p>
           </RevealItem>
         </RevealGroup>
 
         <div className="mt-16 lg:mt-24">
           {services.map((service, i) => (
-            <RevealItem key={service.slug}>
+            <Reveal key={service.slug}>
               <article
                 id={service.slug}
-                className="scroll-mt-28 border-t border-line py-14 last:border-b md:py-20"
+                className="group scroll-mt-28 border-t border-line py-14 last:border-b md:py-20"
               >
                 <div className="shell grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-12">
                   {/* Plate — sides alternate so the page does not march */}
@@ -77,15 +77,15 @@ export default function ServicesPage() {
                       (i % 2 === 1 ? "lg:order-2 lg:col-start-8" : "")
                     }
                   >
-                    <div className="crop-marks relative aspect-4/3 w-full overflow-hidden bg-paper-2 text-fg-subtle">
-                      <Image
-                        src={service.image}
-                        alt={service.title}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 40vw"
-                        className="object-cover"
-                      />
-                    </div>
+                    <RevealImage
+                      src={service.image}
+                      alt={service.title}
+                      sizes="(max-width: 1024px) 100vw, 40vw"
+                      className="crop-marks aspect-4/3 w-full bg-paper-2 text-fg-subtle"
+                      imgClassName="group-hover:scale-[1.035]"
+                    >
+                      <span className="absolute inset-0 bg-ink/0 transition-colors duration-700 group-hover:bg-ink/10" />
+                    </RevealImage>
                   </div>
 
                   {/* Copy */}
@@ -101,11 +101,13 @@ export default function ServicesPage() {
                       </span>
                       <ServiceIcon
                         name={service.icon}
-                        className="size-5 text-fg-subtle"
+                        className="size-5 text-fg-subtle transition-[color,transform] duration-500 ease-out-expo group-hover:-translate-y-0.5 group-hover:text-accent"
                       />
                     </div>
 
-                    <h2 className="display-md mt-5">{service.title}</h2>
+                    <h2 className="display-md mt-5 transition-colors duration-500 group-hover:text-accent-deep">
+                      {service.title}
+                    </h2>
                     <p className="lede mt-5">{service.summary}</p>
                     <p className="mt-5 text-sm leading-relaxed text-fg-muted md:text-base">
                       {service.description}
@@ -163,7 +165,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
               </article>
-            </RevealItem>
+            </Reveal>
           ))}
         </div>
       </Section>
@@ -179,7 +181,7 @@ export default function ServicesPage() {
             </div>
             <h2 className="display-lg mt-7">Useful support around the build.</h2>
             <p className="mt-7 max-w-md text-base leading-relaxed text-fg-invert-muted">
-              These supporting scopes can be discussed alongside the five core
+              These supporting scopes can be discussed alongside the core
               services when your project needs them.
             </p>
           </Reveal>

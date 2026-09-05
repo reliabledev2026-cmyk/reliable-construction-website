@@ -52,7 +52,7 @@ export function RevealGroup({
   className?: string;
   gap?: number;
   delay?: number;
-  as?: "div" | "ul" | "ol" | "section";
+  as?: "div" | "ul" | "ol" | "dl" | "section";
 }) {
   const Cmp = motion[as] as React.ElementType;
   return (

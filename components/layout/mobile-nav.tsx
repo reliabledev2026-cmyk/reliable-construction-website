@@ -1,7 +1,7 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 export function MobileNav({ invert }: { invert: boolean }) {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
 
   // Links close the panel on activation rather than reacting to a route change,
   // so the panel also closes when the target route is the current one.
@@ -29,7 +30,7 @@ export function MobileNav({ invert }: { invert: boolean }) {
         <button
           aria-label="Open menu"
           className={cn(
-            "flex size-11 items-center justify-center transition-colors lg:hidden",
+            "flex size-11 items-center justify-center transition-colors duration-400 ease-out-expo lg:hidden",
             invert ? "text-fg-invert" : "text-fg",
           )}
         >
@@ -53,9 +54,21 @@ export function MobileNav({ invert }: { invert: boolean }) {
             <Dialog.Content asChild forceMount aria-describedby={undefined}>
               <motion.div
                 className="fixed inset-0 z-91 flex flex-col bg-ink text-fg-invert lg:hidden"
-                initial={{ clipPath: "inset(0 0 100% 0)" }}
-                animate={{ clipPath: "inset(0 0 0% 0)" }}
-                exit={{ clipPath: "inset(0 0 100% 0)" }}
+                initial={
+                  prefersReducedMotion
+                    ? { opacity: 0 }
+                    : { clipPath: "inset(0 0 100% 0)" }
+                }
+                animate={
+                  prefersReducedMotion
+                    ? { opacity: 1 }
+                    : { clipPath: "inset(0 0 0% 0)" }
+                }
+                exit={
+                  prefersReducedMotion
+                    ? { opacity: 0 }
+                    : { clipPath: "inset(0 0 100% 0)" }
+                }
                 transition={{ duration: 0.55, ease: EASE }}
               >
                 <Dialog.Title className="sr-only">Site navigation</Dialog.Title>
@@ -108,7 +121,7 @@ export function MobileNav({ invert }: { invert: boolean }) {
                             </span>
                             <span
                               className={cn(
-                                "display-sm transition-colors",
+                                "display-sm transition-colors duration-400 ease-out-expo",
                                 active ? "text-accent-soft" : "text-fg-invert",
                               )}
                             >
